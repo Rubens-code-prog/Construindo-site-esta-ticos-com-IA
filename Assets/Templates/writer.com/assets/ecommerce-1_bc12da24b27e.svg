@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <circle cx="16" cy="16" r="16" fill="#DDFF7B"></circle>
+  <g clip-path="url(#clip0_658_2735)">
+    <path d="M5 10V10C5.4119 10 5.76899 10.285 5.86037 10.6866L8.36434 21.6932C8.52639 22.4055 9.15972 22.911 9.89025 22.911H22.9941" stroke="black" stroke-linecap="square"></path>
+    <circle cx="10.3431" cy="24.3143" r="1.25377" stroke="black"></circle>
+    <circle cx="21.5008" cy="24.3143" r="1.25377" stroke="black"></circle>
+    <path d="M8.39415 20.9311H21.9453C22.6887 20.9311 23.3295 20.4081 23.4785 19.6798L24.7544 13.4419C24.8812 12.8219 24.4075 12.2415 23.7747 12.2415L6.17236 12.2415" stroke="black"></path>
+    <circle cx="15.6738" cy="12.2812" r="6.67381" fill="#DDFF7B" stroke="black"></circle>
+    <ellipse cx="15.7637" cy="12.5" rx="4.5" ry="6.5" fill="#DDFF7B" stroke="black" stroke-width="0.6"></ellipse>
+    <ellipse cx="15.7637" cy="12.5" rx="1.5" ry="6.5" fill="#DDFF7B" stroke="black" stroke-width="0.6"></ellipse>
+    <path d="M22.2637 15H9.26367" stroke="black" stroke-width="0.6"></path>
+    <path d="M22.2637 10L9.26367 10" stroke="black" stroke-width="0.6"></path>
+  </g>
+  <defs>
+    <clipPath id="clip0_658_2735">
+      <rect width="22" height="22" fill="white" transform="translate(5 5)"></rect>
+    </clipPath>
+  </defs>
+</svg>

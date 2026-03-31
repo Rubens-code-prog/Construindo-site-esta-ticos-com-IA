@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'PPFormulaCondensed';
+    src: url('PPFormulaCondensed-Black.woff2') format('woff2'),
+         url('PPFormulaCondensed-Black.woff') format('woff'),
+         url('PPFormulaCondensed-Black.ttf') format('truetype'),
+         url('PPFormulaCondensed-Black.otf') format('opentype'),
+         url('PPFormulaCondensed-Black.eot?#iefix') format('embedded-opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PPFormulaCondensed';
+    src: url('PPFormulaCondensed-Bold.woff2') format('woff2'),
+         url('PPFormulaCondensed-Bold.woff') format('woff'),
+         url('PPFormulaCondensed-Bold.ttf') format('truetype'),
+         url('PPFormulaCondensed-Bold.otf') format('opentype'),
+         url('PPFormulaCondensed-Bold.eot?#iefix') format('embedded-opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PPFormulaCondensed';
+    src: url('PPFormulaCondensed-Light.woff2') format('woff2'),
+         url('PPFormulaCondensed-Light.woff') format('woff'),
+         url('PPFormulaCondensed-Light.ttf') format('truetype'),
+         url('PPFormulaCondensed-Light.otf') format('opentype'),
+         url('PPFormulaCondensed-Light.eot?#iefix') format('embedded-opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PPFormulaCondensed';
+    src: url('PPFormulaCondensed-Regular.woff2') format('woff2'),
+         url('PPFormulaCondensed-Regular.woff') format('woff'),
+         url('PPFormulaCondensed-Regular.ttf') format('truetype'),
+         url('PPFormulaCondensed-Regular.otf') format('opentype'),
+         url('PPFormulaCondensed-Regular.eot?#iefix') format('embedded-opentype');
+    font-weight: 400;
+    font-style: normal;
+}

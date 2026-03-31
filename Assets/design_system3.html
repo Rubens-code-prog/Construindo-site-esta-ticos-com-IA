@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System V3 - AI Vision</title>
+    
+    <!-- Google Fonts: Bricolage Grotesque & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['"Bricolage Grotesque"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#fff3eb',
+                            100: '#ffe4c6',
+                            200: '#ffcb8e',
+                            300: '#ffa64d',
+                            400: '#ff7b00',
+                            500: '#ff5a00', // Core AI Social Automation Orange
+                            600: '#ea4000',
+                            700: '#c22d00',
+                            800: '#9b2408',
+                            900: '#7c200b',
+                        },
+                        neutral: {
+                            900: '#0a0a0a',
+                            800: '#141414',
+                            700: '#262626',
+                            600: '#404040',
+                        },
+                        accent: {
+                            blue: '#4361ee',
+                            green: '#06d6a0',
+                            purple: '#7209b7',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'beam-light': 'linear-gradient(180deg, transparent, rgba(255, 90, 0, 0.4), transparent)',
+                    },
+                    animation: {
+                        'tilt': 'tilt 10s infinite linear',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        tilt: {
+                            '0%, 50%, 100%': { transform: 'rotate(0deg)' },
+                            '25%': { transform: 'rotate(0.5deg)' },
+                            '75%': { transform: 'rotate(-0.5deg)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: .5 },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        body {
+            background-color: #030303;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Essential Animations from References */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            filter: blur(10px);
+            transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo), filter 0.8s var(--ease-out-expo);
+        }
+
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* 3D Hover Buttons (Futuristic-technology1) */
+        .btn-3d {
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.3s ease;
+        }
+        .btn-3d:hover {
+            transform: translateY(-2px) rotateX(5deg) scale(1.02);
+            box-shadow: 0 15px 30px -5px rgba(255, 90, 0, 0.4);
+        }
+
+        /* Electric Card (AI Social Automation) */
+        .electric-card {
+            position: relative;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(16px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s var(--ease-out-expo);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .electric-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(145deg, rgba(255,90,0,0.5) 0%, rgba(255,255,255,0.05) 50%, rgba(255,90,0,0.1) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .electric-card:hover {
+            transform: translateY(-5px);
+            background: rgba(20, 20, 20, 0.8);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,90,0,0.1);
+        }
+
+        .electric-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Glowing Beams Background (Nexgent / Futuristic) */
+        .beam-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .beam-line {
+            position: absolute;
+            width: 1px;
+            height: 100vh;
+            background: linear-gradient(180deg, transparent, rgba(255,255,255,0.05), transparent);
+        }
+        .beam-line::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -1px;
+            width: 3px;
+            height: 50%;
+            background: var(--tw-gradient-stops);
+            box-shadow: 0 0 20px 2px rgba(255, 90, 0, 0.5);
+            animation: shoot-beam 4s infinite ease-in-out;
+        }
+
+        @keyframes shoot-beam {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(300%); opacity: 0; }
+        }
+
+        /* Grid Pattern */
+        .bg-grid {
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Glass Nav */
+        .glass-nav {
+            background: rgba(3, 3, 3, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(90deg, #FFFFFF 0%, #FF5A00 100%);
+        }
+
+        /* Tags (Taskade/Writer inspired) */
+        .hero-tag-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: rgba(255, 90, 0, 0.1);
+            border: 1px solid rgba(255, 90, 0, 0.2);
+            color: #FF5A00;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .hero-tag-wrap i {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #FF5A00;
+            box-shadow: 0 0 10px #FF5A00;
+            animation: pulse-glow 2s infinite;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary-500 selection:text-white relative">
+
+    <!-- Background Beams -->
+    <div class="beam-container flex justify-between px-10 md:px-20 lg:px-40">
+        <div class="beam-line from-transparent via-primary-500 to-transparent" style="animation-delay: 0s;"></div>
+        <div class="beam-line from-transparent via-primary-500 to-transparent" style="animation-delay: 1.2s;"></div>
+        <div class="beam-line from-transparent via-primary-500 to-transparent hidden md:block" style="animation-delay: 2.5s;"></div>
+        <div class="beam-line from-transparent via-primary-500 to-transparent hidden lg:block" style="animation-delay: 0.8s;"></div>
+        <div class="beam-line from-transparent via-primary-500 to-transparent hidden lg:block" style="animation-delay: 3s;"></div>
+    </div>
+
+    <!-- Background Grid -->
+    <div class="fixed inset-0 bg-grid z-0 pointer-events-none opacity-50"></div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i data-lucide="layers" class="text-primary-500 w-8 h-8"></i>
+                <span class="font-display font-bold text-xl tracking-tight">Design System<span class="text-primary-500">.</span>V3</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-sans text-sm font-medium text-gray-400">
+                <a href="#hero" class="hover:text-white transition-colors">Vision</a>
+                <a href="#typography" class="hover:text-white transition-colors">Typography</a>
+                <a href="#colors" class="hover:text-white transition-colors">Colors</a>
+                <a href="#components" class="hover:text-white transition-colors">Components</a>
+            </div>
+            <div>
+                <button class="btn-3d px-6 py-2.5 bg-white text-black font-semibold rounded-full text-sm hover:bg-gray-100 transition-colors">
+                    Download Kit
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10 pt-20">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-[90vh] flex flex-col items-center justify-center pt-20 pb-32 px-6 text-center relative">
+            <div class="absolute inset-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-500/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen opacity-50"></div>
+            
+            <div class="reveal-up hero-tag-wrap mb-8" style="transition-delay: 0.1s;">
+                <i></i> The Next Generation Framework
+            </div>
+            
+            <h1 class="reveal-up font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] max-w-5xl mx-auto mb-8" style="transition-delay: 0.2s;">
+                Build digital <br/>
+                <span class="text-gradient">masterpieces faster.</span>
+            </h1>
+            
+            <p class="reveal-up font-sans text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed" style="transition-delay: 0.3s;">
+                A creative synthesis of five distinct design languages, engineered to deliver unparalleled aesthetic superiority, hyper-dynamic interactions, and robust technical scalability.
+            </p>
+            
+            <div class="reveal-up flex flex-col sm:flex-row items-center gap-4" style="transition-delay: 0.4s;">
+                <button class="btn-3d w-full sm:w-auto px-8 py-4 bg-primary-500 text-white font-semibold rounded-full flex items-center justify-center gap-2 group">
+                    Explore Components
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                <button class="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold rounded-full transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="github" class="w-5 h-5"></i> View Source
+                </button>
+            </div>
+        </section>
+
+        <!-- Typography Section -->
+        <section id="typography" class="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
+            <div class="reveal-up mb-16">
+                <div class="flex items-center gap-3 text-primary-500 font-medium mb-4 uppercase tracking-widest text-sm">
+                    <i data-lucide="type" class="w-5 h-5"></i> Typography
+                </div>
+                <h2 class="font-display text-4xl md:text-5xl font-bold">Expressive & Clear</h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Bricolage -->
+                <div class="reveal-up electric-card p-10">
+                    <div class="flex justify-between items-start mb-8 border-b border-white/10 pb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-1">Display</h3>
+                            <p class="text-gray-400 text-sm">Bricolage Grotesque</p>
+                        </div>
+                        <div class="text-5xl font-display font-bold text-primary-500">Ag</div>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-2">Heading 1 - 72px / Bold</p>
+                            <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">The quick brown</h1>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-2">Heading 2 - 48px / SemiBold</p>
+                            <h2 class="font-display text-4xl md:text-5xl font-semibold leading-tight">Jumps over the lazy</h2>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-2">Heading 3 - 32px / Medium</p>
+                            <h3 class="font-display text-3xl font-medium leading-tight">Dog at the end of the day.</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inter -->
+                <div class="reveal-up electric-card p-10" style="transition-delay: 0.1s;">
+                    <div class="flex justify-between items-start mb-8 border-b border-white/10 pb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-1">Body</h3>
+                            <p class="text-gray-400 text-sm">Inter sans-serif</p>
+                        </div>
+                        <div class="text-5xl font-sans font-medium text-white/50">Ag</div>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-2">Body Large - 18px / Regular</p>
+                            <p class="font-sans text-lg text-gray-300 leading-relaxed">
+                                The future of interface design relies on robust typographic systems. We prioritize readability while maintaining a distinct, technological aesthetic.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-2">Body Base - 16px / Regular</p>
+                            <p class="font-sans text-base text-gray-400 leading-relaxed">
+                                Our body copy is optimized for long-form reading, ensuring that every piece of documentation is as beautiful as it is functional.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-2">Body Small - 14px / Medium</p>
+                            <p class="font-sans text-sm text-gray-500 font-medium">
+                                Small utility text for captions, metadata, and fine details.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Colors Section -->
+        <section id="colors" class="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
+            <div class="reveal-up mb-16">
+                <div class="flex items-center gap-3 text-primary-500 font-medium mb-4 uppercase tracking-widest text-sm">
+                    <i data-lucide="palette" class="w-5 h-5"></i> Color System
+                </div>
+                <h2 class="font-display text-4xl md:text-5xl font-bold">Semantic & Vibrant</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Primary -->
+                <div class="reveal-up space-y-4">
+                    <div class="h-40 rounded-2xl bg-primary-500 shadow-[0_0_30px_rgba(255,90,0,0.3)] flex items-end p-4 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="relative z-10 w-full flex justify-between items-end">
+                            <span class="font-bold text-white">Primary Orange</span>
+                            <span class="text-white/80 font-mono text-sm">#FF5A00</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-5 gap-2 h-10">
+                        <div class="bg-primary-300 rounded-lg" title="300"></div>
+                        <div class="bg-primary-400 rounded-lg" title="400"></div>
+                        <div class="bg-primary-500 rounded-lg ring-2 ring-white/20" title="500"></div>
+                        <div class="bg-primary-600 rounded-lg" title="600"></div>
+                        <div class="bg-primary-700 rounded-lg" title="700"></div>
+                    </div>
+                </div>
+
+                <!-- Neutral Base -->
+                <div class="reveal-up space-y-4" style="transition-delay: 0.1s;">
+                    <div class="h-40 rounded-2xl bg-[#0a0a0a] border border-white/10 flex items-end p-4 relative overflow-hidden group">
+                        <div class="relative z-10 w-full flex justify-between items-end">
+                            <span class="font-bold text-white">Deep Dark</span>
+                            <span class="text-white/50 font-mono text-sm">#0A0A0A</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-5 gap-2 h-10">
+                        <div class="bg-neutral-600 rounded-lg" title="600"></div>
+                        <div class="bg-neutral-700 rounded-lg" title="700"></div>
+                        <div class="bg-neutral-800 rounded-lg" title="800"></div>
+                        <div class="bg-neutral-900 rounded-lg ring-2 ring-white/20" title="900"></div>
+                        <div class="bg-[#030303] border border-white/5 rounded-lg" title="Base"></div>
+                    </div>
+                </div>
+                
+                <!-- Accents -->
+                <div class="reveal-up space-y-4" style="transition-delay: 0.2s;">
+                    <div class="h-40 rounded-2xl bg-accent-blue flex items-end p-4 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="relative z-10 w-full flex justify-between items-end">
+                            <span class="font-bold text-white">Accent Blue</span>
+                            <span class="text-white/80 font-mono text-sm">#4361EE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal-up space-y-4" style="transition-delay: 0.3s;">
+                    <div class="h-40 rounded-2xl bg-accent-green flex items-end p-4 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <div class="relative z-10 w-full flex justify-between items-end">
+                            <span class="font-bold text-white">Success Green</span>
+                            <span class="text-white/80 font-mono text-sm">#06D6A0</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Components Section -->
+        <section id="components" class="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
+            <div class="reveal-up mb-16">
+                <div class="flex items-center gap-3 text-primary-500 font-medium mb-4 uppercase tracking-widest text-sm">
+                    <i data-lucide="layers-3" class="w-5 h-5"></i> UI Library
+                </div>
+                <h2 class="font-display text-4xl md:text-5xl font-bold">Advanced Components</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                
+                <!-- Buttons & Badges (col-span-4) -->
+                <div class="md:col-span-4 space-y-8">
+                    <div class="reveal-up electric-card p-8 h-full flex flex-col justify-center">
+                        <h3 class="text-xl font-bold mb-6 font-display border-b border-white/10 pb-4">Actions</h3>
+                        
+                        <div class="space-y-6 flex-1">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-3 uppercase tracking-wider">Primary 3D</p>
+                                <button class="btn-3d w-full py-3 bg-primary-500 text-white font-semibold rounded-lg shadow-[0_4px_14px_0_rgba(255,90,0,0.39)] hover:shadow-[0_6px_20px_rgba(255,90,0,0.23)]">
+                                    Primary Action
+                                </button>
+                            </div>
+                            
+                            <div>
+                                <p class="text-xs text-gray-500 mb-3 uppercase tracking-wider">Glass Outline</p>
+                                <button class="btn-3d w-full py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold rounded-lg backdrop-blur-md">
+                                    Secondary Action
+                                </button>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-gray-500 mb-3 uppercase tracking-wider">Ghost Link</p>
+                                <button class="w-full py-3 text-gray-400 hover:text-white font-medium rounded-lg hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
+                                    Learn more <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forms & Inputs (col-span-8) -->
+                <div class="md:col-span-8">
+                    <div class="reveal-up electric-card p-8 h-full">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+                            <h3 class="text-xl font-bold font-display">Data Entry</h3>
+                            <div class="hero-tag-wrap !py-1 !px-3 !text-xs">
+                                <i></i> Real-time parsing
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Input -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-400">Email Address</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500">
+                                        <i data-lucide="mail" class="w-5 h-5"></i>
+                                    </div>
+                                    <input type="email" class="w-full pl-11 pr-4 py-3 bg-black/40 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all text-white placeholder-gray-600" placeholder="hello@writer.com">
+                                </div>
+                            </div>
+                            
+                            <!-- Select (Custom style) -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-400">Department</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500">
+                                        <i data-lucide="briefcase" class="w-5 h-5"></i>
+                                    </div>
+                                    <select class="w-full pl-11 pr-10 py-3 bg-black/40 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all text-white appearance-none cursor-pointer">
+                                        <option class="bg-neutral-900 text-white">Engineering</option>
+                                        <option class="bg-neutral-900 text-white">Design</option>
+                                        <option class="bg-neutral-900 text-white">Marketing</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-500">
+                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Textarea -->
+                            <div class="space-y-2 sm:col-span-2">
+                                <label class="text-sm font-medium text-gray-400">AI Prompt</label>
+                                <div class="relative">
+                                    <textarea rows="4" class="w-full p-4 bg-black/40 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all text-white placeholder-gray-600 resize-none font-mono text-sm" placeholder="Generate a comprehensive report based on..."></textarea>
+                                    <div class="absolute bottom-3 right-3 flex items-center gap-2">
+                                        <button class="p-2 hover:bg-white/10 rounded-md text-gray-400 transition-colors" title="Attach file">
+                                            <i data-lucide="paperclip" class="w-4 h-4"></i>
+                                        </button>
+                                        <button class="px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium shadow-[0_0_15px_rgba(255,90,0,0.3)] transition-all flex justify-center items-center">
+                                            <i data-lucide="send" class="w-4 h-4 mr-2"></i> Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Cards -->
+                <div class="md:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                    
+                    <div class="reveal-up electric-card p-6 flex flex-col group" style="transition-delay: 0.1s;">
+                        <div class="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary-500/20 group-hover:text-primary-500 transition-all duration-300">
+                            <i data-lucide="zap" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-display font-bold text-lg mb-2">Lightning Fast Performance</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed flex-1">Optimized rendering and GPU-accelerated animations ensure highly responsive interactions regardless of dataset size.</p>
+                    </div>
+
+                    <div class="reveal-up electric-card p-6 flex flex-col group" style="transition-delay: 0.2s;">
+                        <div class="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-accent-blue/20 group-hover:text-accent-blue transition-all duration-300">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-display font-bold text-lg mb-2">Enterprise Security</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed flex-1">Bank-grade encryption models built directly into the UI state management to prevent leakage.</p>
+                    </div>
+
+                    <div class="reveal-up electric-card p-6 flex flex-col group" style="transition-delay: 0.3s;">
+                        <div class="w-12 h-12 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-accent-purple/20 group-hover:text-accent-purple transition-all duration-300">
+                            <i data-lucide="cpu" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-display font-bold text-lg mb-2">AI-Driven State</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed flex-1">Adaptive interfaces that anticipate user needs through continuous context modeling.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-white/10 py-12 px-6 relative z-10 glass-nav mt-20">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="layers" class="text-gray-500 w-6 h-6"></i>
+                <span class="font-display font-semibold text-gray-500">DesignSystem V3</span>
+            </div>
+            <p class="text-gray-600 text-sm">Synthesized by AI for ultimate aesthetics. All rights reserved &copy; 2026.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-gray-500 hover:text-primary-500 transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-500 hover:text-primary-500 transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-500 hover:text-primary-500 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Intersection Observer for Scroll Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Optional: stop observing once revealed
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-up').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "name": "Taskade",
+  "short_name": "Taskade",
+  "description": "Taskade is the unified workspace for you and your team. Get work done faster and smarter with structured task lists, outline notes, kanban boards, and mind maps.",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.taskade.mobile"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/us/app/taskade-team-productivity/id1264713923"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/images/taskade-icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/taskade-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/images/taskade-icon-1024.png",
+      "type": "image/png",
+      "sizes": "1024x1024"
+    }
+  ],
+  "gcm_sender_id": "103953800507"
+}

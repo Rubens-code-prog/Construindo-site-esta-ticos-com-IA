@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luminous | Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        bricolage: ['"Bricolage Grotesque"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                            950: '#431407',
+                        }
+                    },
+                    backgroundImage: {
+                        'grid': 'linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS Base from Design System -->
+    <style>
+        body {
+            background-color: #030303;
+            color: #ffffff;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Scroller Reset */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #f9731633; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f9731688; }
+
+        .bg-grid { background-size: 64px 64px; }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Electric Card Glow Effect */
+        .electric-card {
+            box-shadow: 0 0 40px rgba(249, 115, 22, 0.15), inset 0 0 20px rgba(249, 115, 22, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .electric-card:hover {
+            box-shadow: 0 0 60px rgba(249, 115, 22, 0.3), inset 0 0 30px rgba(249, 115, 22, 0.1);
+        }
+
+        /* Entrance Animations - Sequence */
+        @keyframes fadeInUpBlur {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .animate-entry {
+            opacity: 0; 
+            animation: fadeInUpBlur 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        /* Delays */
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        .delay-500 { animation-delay: 500ms; }
+
+        /* Fancy 3D Button Utility */
+        .btn-3d { transition: transform 0.1s; }
+
+        /* Lenis smooth scroll resets */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+    </style>
+</head>
+<body class="selection:bg-brand-500/30 font-sans relative">
+
+    <!-- Apple Video Scroll Background Layer -->
+    <div class="fixed inset-0 w-full h-full z-0 pointer-events-none bg-black">
+        <video id="bg-video" 
+               src="Chaos_to_clean_202603310803.mp4" 
+               class="w-full h-full object-cover mix-blend-screen transition-opacity duration-[2000ms] ease-in-out"
+               style="opacity: 0;"
+               muted playsinline preload="auto">
+        </video>
+        <!-- Overlay for Contrast & Aesthetics -->
+        <div class="absolute inset-0 bg-grid bg-[length:64px_64px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#030303]/40 via-transparent to-[#030303]/90"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-3rem)] max-w-5xl rounded-full glass-panel flex items-center justify-between px-6 py-3 animate-entry shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+        <div class="flex items-center gap-2">
+            <div class="relative flex items-center justify-center w-8 h-8">
+                <i data-lucide="asterisk" class="text-white w-8 h-8 absolute rotate-45"></i>
+                <i data-lucide="asterisk" class="text-brand-500 w-8 h-8 absolute scale-125 opacity-50 blur-[2px]"></i>
+            </div>
+            <span class="text-xl font-bold font-bricolage text-white tracking-tight ml-2">Luminous<span class="text-brand-500">.</span></span>
+        </div>
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
+            <a href="#" class="hover:text-white transition-colors">Works</a>
+            <a href="#" class="hover:text-white transition-colors">Manifesto</a>
+            <a href="#" class="hover:text-white transition-colors">Process</a>
+        </div>
+        <div>
+            <a href="#" class="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all">
+                Hire Me
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Scrolling Area (Long height to allow video scrubbing) -->
+    <main class="relative z-10 w-full flex flex-col items-center">
+        
+        <!-- 1) Hero Section (vh-screen) -->
+        <section class="w-full h-screen max-w-7xl flex flex-col lg:flex-row items-center justify-center px-6 lg:gap-16 relative">
+            
+            <!-- Left Side / Typography -->
+            <div class="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-20 pt-20">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs font-medium text-brand-400 mb-8 animate-entry delay-100">
+                    <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                    Creative Engineer
+                </div>
+
+                <h1 class="text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] text-white font-bricolage font-light tracking-tight mb-6 animate-entry delay-200 drop-shadow-lg">
+                    Digital <br/> <span class="italic font-medium text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-200 to-brand-500">Perfection.</span><br />
+                    At scale.
+                </h1>
+
+                <!-- Glass Text Background for better contrast over video -->
+                <p class="text-lg md:text-xl text-neutral-300 max-w-xl mb-12 font-sans animate-entry delay-300 glass-panel px-6 py-4 rounded-2xl">
+                    Crafting ultra-high standard interfaces, bridging abstract concepts into robust front-end architectures with meticulous precision.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-5 animate-entry delay-400">
+                    <!-- Primary Glow Button -->
+                    <button class="btn-3d group flex items-center justify-center gap-3 rounded-full bg-gradient-to-t from-brand-600 via-brand-500 to-amber-500 px-8 py-4 text-base font-semibold text-white shadow-[0_0_40px_-5px_rgba(249,115,22,0.6)] ring-1 ring-inset ring-white/30 transition-shadow duration-300"
+                            onmousemove="const rect = this.getBoundingClientRect(); const x = event.clientX - rect.left; const y = event.clientY - rect.top; const centerX = rect.width / 2; const centerY = rect.height / 2; const rotateX = ((y - centerY) / centerY) * -15; const rotateY = ((x - centerX) / centerX) * 15; this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`; "
+                            onmouseout="this.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`; this.style.boxShadow = '0 0 40px -5px rgba(249,115,22,0.6)'; "
+                            onmouseover="this.style.boxShadow = '0 0 60px 0px rgba(249,115,22,0.8), inset 0 2px 8px rgba(255, 255, 255, 0.5)'; ">
+                        <i data-lucide="layers" class="w-5 h-5 drop-shadow-md"></i>
+                        <span>View Portfolio</span>
+                    </button>
+                    
+                    <!-- Outline Button -->
+                    <button class="px-8 py-4 rounded-full border border-white/20 hover:border-white/50 bg-white/5 backdrop-blur-xl text-white font-medium transition-all group flex items-center justify-center gap-2 shadow-lg">
+                        GitHub Profile
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Side / Electric Card Demo -->
+            <div class="lg:w-1/2 mt-16 lg:mt-0 flex justify-center z-20 animate-entry delay-500 w-full max-w-md pt-20">
+                <div class="w-full relative bg-neutral-900/80 rounded-[32px] p-[2px] electric-card overflow-hidden backdrop-blur-2xl group cursor-pointer hover:-translate-y-2 transition-transform duration-500 shadow-2xl">
+                    <!-- Border Gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-amber-300 via-brand-500 to-transparent opacity-70 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+                    
+                    <div class="relative z-10 bg-[#0A0A0A]/90 rounded-[30px] h-full p-8 flex flex-col items-start overflow-hidden w-full">
+                        <div class="absolute top-0 right-[-50px] w-64 h-64 bg-gradient-to-b from-brand-600/30 to-transparent rounded-full filter blur-[50px] mix-blend-screen pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+
+                        <div class="flex justify-between w-full items-center mb-6 relative">
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-neutral-300 border border-white/10 px-3 py-1.5 rounded bg-white/5 flex items-center gap-2 shadow-inner">
+                                <span class="relative flex h-2 w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                                </span>
+                                System Live
+                            </span>
+                            <div class="flex gap-1">
+                                <span class="w-2 h-2 rounded-full bg-white/20"></span>
+                                <span class="w-2 h-2 rounded-full bg-white/20"></span>
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl font-bricolage text-white font-medium mb-2 tracking-tight">Performance Matrix</h3>
+                        <p class="text-xs text-neutral-400 leading-relaxed mb-8">Real-time telemetry and project execution tracking.</p>
+
+                        <div class="w-full mb-8">
+                            <div class="flex items-end gap-3 mb-2">
+                                <span class="text-5xl text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-300 font-bricolage font-light tracking-tight">
+                                    99.9%
+                                </span>
+                                <span class="text-xs text-emerald-400 flex items-center bg-emerald-400/10 border border-emerald-400/20 px-2 py-1 rounded-md mb-2 font-medium">
+                                    <i data-lucide="trending-up" class="w-3 h-3 mr-1"></i> Efficiency
+                                </span>
+                            </div>
+                            
+                            <!-- Animated SVG Sparkline -->
+                            <div class="w-full h-16 relative mt-4 border-b border-white/10">
+                                <svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 300 60">
+                                    <defs>
+                                        <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#f97316" stop-opacity="0.4" />
+                                            <stop offset="100%" stop-color="#f97316" stop-opacity="0" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M0 60 C 40 40, 60 55, 100 25 C 140 -5, 170 30, 200 15 C 240 0, 260 20, 300 5 V 60 H 0 Z" fill="url(#lineGrad)" />
+                                    <!-- Stroke line -->
+                                    <path d="M0 60 C 40 40, 60 55, 100 25 C 140 -5, 170 30, 200 15 C 240 0, 260 20, 300 5" fill="none" stroke="#f97316" stroke-width="3" stroke-linecap="round" class="drop-shadow-[0_0_5px_rgba(249,115,22,0.8)]" />
+                                    <!-- Pulsing circle marker -->
+                                    <circle cx="300" cy="5" r="4" fill="#fff" stroke="#f97316" stroke-width="2" class="animate-pulse shadow-[0_0_10px_#f97316]" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 w-full justify-between items-center text-xs mt-auto">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-neutral-500 font-medium">Lines of Code</span>
+                                <span class="text-white font-bricolage text-lg">140k+</span>
+                            </div>
+                            <div class="flex flex-col gap-1 text-right">
+                                <span class="text-neutral-500 font-medium">Delivered</span>
+                                <span class="text-white font-bricolage text-lg">42</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- 2) Scroll Buffer Section -->
+        <section class="w-full h-[120vh] relative flex justify-center pt-40 px-6">
+            <div class="absolute top-10 flex flex-col items-center opacity-50">
+                <span class="text-[10px] text-white uppercase tracking-widest mb-2 font-medium">Scroll to explore</span>
+                <div class="w-px h-24 bg-gradient-to-b from-brand-500 to-transparent"></div>
+            </div>
+
+            <!-- Reveal text panel -->
+            <div class="gsap-reveal w-full max-w-4xl glass-panel p-10 md:p-16 rounded-[40px] mt-20 shadow-2xl h-max opacity-0">
+                <h2 class="text-3xl md:text-5xl font-bricolage text-white font-light tracking-tight mb-6">Embracing the <span class="text-brand-500 italic">Chaos.</span></h2>
+                <p class="text-neutral-300 font-sans leading-relaxed text-lg max-w-2xl">
+                    Every great product starts in chaos. The engineering process is about taming complexity into a streamlined, high-speed experience. Watch the background video dynamically reflect this journey as you navigate.
+                </p>
+                
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                        <i data-lucide="cpu" class="w-8 h-8 text-brand-400 mb-4"></i>
+                        <h4 class="text-white font-bricolage text-lg mb-2">Performance First</h4>
+                        <p class="text-xs text-neutral-400">Micro-optimized DOM elements for 60fps rendering.</p>
+                    </div>
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                        <i data-lucide="zap" class="w-8 h-8 text-brand-400 mb-4"></i>
+                        <h4 class="text-white font-bricolage text-lg mb-2">High Voltage UI</h4>
+                        <p class="text-xs text-neutral-400">Deep color contrasts built entirely via native CSS paradigms.</p>
+                    </div>
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                        <i data-lucide="layers" class="w-8 h-8 text-brand-400 mb-4"></i>
+                        <h4 class="text-white font-bricolage text-lg mb-2">Modularity</h4>
+                        <p class="text-xs text-neutral-400">Scalable components designed to evolve over time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3) Footer CTA -->
+        <section class="w-full h-screen flex flex-col items-center justify-center relative px-6 z-20 pb-20">
+            <div class="gsap-reveal w-full max-w-2xl text-center glass-panel p-16 rounded-[40px] relative overflow-hidden opacity-0">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-[80px]"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber-400/10 rounded-full blur-[80px]"></div>
+                
+                <h2 class="text-4xl md:text-6xl font-bricolage text-white font-light tracking-tight mb-8">Let's Build.</h2>
+                <button class="bg-white text-black px-10 py-5 rounded-full text-lg font-semibold shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.8)] transition-all hover:scale-105 inline-flex items-center gap-3">
+                    Start a Project <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Custom Scripts -->
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+
+        // Init Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+
+        // Link Lenis scroll to GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0, 0);
+
+        // Apple Video Parallax Implementation (Bulletproof Local Loader)
+        gsap.registerPlugin(ScrollTrigger);
+
+        const video = document.getElementById("bg-video");
+        let scrubInitialized = false;
+        
+        function initVideoScrub() {
+            if(scrubInitialized) return;
+            scrubInitialized = true;
+            
+            // Fade the video in beautifully once it's completely ready to avoid jarring pop-in
+            video.style.opacity = "0.6";
+
+            let proxy = { percent: 0 };
+            
+            // --- Advanced Seek Queue for H.264 MP4 Performance ---
+            let targetTime = 0;
+            let isSeeking = false;
+
+            video.addEventListener('seeked', () => {
+                isSeeking = false;
+                // If scroll kept progressing while the browser decoded the last frame, fire the next frame update safely
+                if (Math.abs(video.currentTime - targetTime) > 0.04) {
+                    isSeeking = true;
+                    video.currentTime = targetTime;
+                }
+            });
+
+            // GSAP handles the progress smoothly
+            gsap.to(proxy, {
+                percent: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: document.documentElement,
+                    start: "top top",
+                    end: "max", // Dynamically binds to the maximum absolute scroll distance
+                    scrub: 1.2, // Balanced smooth interpolation
+                },
+                onUpdate: () => {
+                    let duration = video.duration;
+                    if (duration > 0 && video.readyState >= 1) {
+                        targetTime = proxy.percent * duration;
+                        // Strict Queue: Only send a seek command if the browser decoder is genuinely ready
+                        if (!isSeeking) {
+                            isSeeking = true;
+                            video.currentTime = targetTime;
+                        }
+                    }
+                }
+            });
+        }
+
+        // Ensure video is properly loaded before mounting to timeline
+        if (video.readyState >= 1) {
+            initVideoScrub();
+        } else {
+            video.addEventListener("loadedmetadata", initVideoScrub);
+            video.addEventListener("canplay", initVideoScrub);
+        }
+
+        // CRITICAL FIX: Fonts and styles expanding the DOM height happen *after* initial JS runs.
+        // This caused the timeline to calculate a short body height and end at the "comecinho".
+        window.addEventListener("load", () => {
+            initVideoScrub();
+            video.pause();
+            ScrollTrigger.refresh(true); // Forces GSAP to recalculate the exact new height 
+        });
+
+        // Extra polish: GSAP Reveals for elements scrolling into view
+        const revealElements = document.querySelectorAll('.gsap-reveal');
+        revealElements.forEach((el) => {
+            gsap.fromTo(el, 
+                { opacity: 0, y: 80, filter: "blur(12px)" },
+                { 
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%", // Trigger when element hits 85% of viewport
+                    },
+                    opacity: 1, 
+                    y: 0, 
+                    filter: "blur(0px)",
+                    duration: 1.2, 
+                    ease: "power3.out"
+                }
+            );
+        });
+    </script>
+</body>
+</html>

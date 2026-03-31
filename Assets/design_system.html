@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium Design System</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        bricolage: ['"Bricolage Grotesque"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                            950: '#431407',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'ping-slow': 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS Base -->
+    <style>
+        body {
+            background-color: #030303;
+            overflow-x: hidden;
+            color: #ffffff;
+        }
+
+        /* Scroller Reset */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f9731633;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f9731688;
+        }
+
+        /* Ambient Stars Background */
+        .stars {
+            background-image:
+                radial-gradient(1px 1px at 20px 30px, #ffffff, transparent),
+                radial-gradient(1.5px 1.5px at 80px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 150px 160px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 45px 230px, #ffffff, transparent),
+                radial-gradient(2px 2px at 190px 40px, rgba(249,115,22,0.8), transparent), /* Orange star */
+                radial-gradient(1.5px 1.5px at 230px 180px, #ffffff, transparent);
+            background-size: 300px 300px;
+            opacity: 0.3;
+        }
+
+        /* Grid Background Pattern */
+        .bg-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 64px 64px;
+        }
+
+        /* Electric Card Glow Effect */
+        .electric-card {
+            box-shadow: 0 0 40px rgba(249, 115, 22, 0.15), inset 0 0 20px rgba(249, 115, 22, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .electric-card:hover {
+            box-shadow: 0 0 60px rgba(249, 115, 22, 0.3), inset 0 0 30px rgba(249, 115, 22, 0.1);
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Entrance Animations - Sequence */
+        @keyframes fadeInUpBlur {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .animate-entry {
+            opacity: 0; /* Starts hidden */
+            animation: fadeInUpBlur 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        /* Delays */
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        .delay-500 { animation-delay: 500ms; }
+        .delay-700 { animation-delay: 700ms; }
+
+        /* Beam line animation for the futuristic framing */
+        @keyframes flowBeam {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        .beam-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 150px;
+            background: linear-gradient(to bottom, transparent, rgba(249, 115, 22, 0.8), transparent);
+            animation: flowBeam infinite linear;
+            z-index: 1;
+        }
+
+        /* Animation class applied by JS IntersectionObserver */
+        .animate-on-scroll { 
+            animation-play-state: paused !important; 
+            opacity: 0;
+        }
+        .animate-on-scroll.animate { 
+            animation-play-state: running !important; 
+            opacity: 1; /* Fallback in case animation doesn't handle opacity perfectly */
+        }
+        
+        .animate-scroll-reveal {
+            animation: fadeInUpBlur 0.8s ease-out forwards;
+        }
+
+        /* Fancy 3D Button Utility */
+        .btn-3d {
+            transition: transform 0.1s;
+        }
+    </style>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="selection:bg-brand-500/30 font-sans relative">
+
+    <!-- Global Background Elements -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 bg-[#030303]"></div>
+        <div class="absolute inset-0 bg-grid"></div>
+        <div class="stars absolute inset-0"></div>
+        
+        <!-- Large Glowing Orbs -->
+        <div class="absolute top-[-100px] left-1/4 w-[800px] h-[500px] bg-brand-900/15 blur-[120px] rounded-full mix-blend-screen"></div>
+        <div class="absolute bottom-[-100px] right-20 w-[600px] h-[600px] bg-orange-950/20 blur-[100px] rounded-full mix-blend-screen"></div>
+        
+        <!-- Futuristic Vertical Beams -->
+        <div class="fixed inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl pointer-events-none flex justify-evenly">
+            <div class="w-px h-full bg-white/[0.02] relative overflow-hidden">
+                <div class="beam-line" style="animation-duration: 4s; animation-delay: 0s;"></div>
+            </div>
+            <div class="w-px h-full bg-white/[0.02] relative overflow-hidden hidden md:block">
+                <div class="beam-line" style="animation-duration: 5.5s; animation-delay: 1.2s; background: linear-gradient(to bottom, transparent, rgba(251, 191, 36, 0.5), transparent);"></div>
+            </div>
+            <div class="w-px h-full bg-white/[0.02] relative overflow-hidden">
+                <div class="beam-line" style="animation-duration: 7s; animation-delay: 2.5s;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-3rem)] max-w-5xl rounded-full glass-panel flex items-center justify-between px-6 py-3 animate-entry shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+        <div class="flex items-center gap-2">
+            <div class="relative flex items-center justify-center w-8 h-8">
+                <i data-lucide="asterisk" class="text-white w-8 h-8 absolute rotate-45"></i>
+                <i data-lucide="asterisk" class="text-brand-500 w-8 h-8 absolute scale-125 opacity-50 blur-[2px]"></i>
+            </div>
+            <span class="text-xl font-bold font-bricolage text-white tracking-tight ml-2">Luminous<span class="text-brand-500">.</span></span>
+        </div>
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
+            <a href="#hero" class="hover:text-white transition-colors">Hero</a>
+            <a href="#typography" class="hover:text-white transition-colors">Typography</a>
+            <a href="#colors" class="hover:text-white transition-colors">Colors</a>
+            <a href="#components" class="hover:text-white transition-colors">Components</a>
+            <a href="#icons" class="hover:text-white transition-colors">Icons</a>
+        </div>
+        <div>
+            <a href="#components" class="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all">
+                Get Started
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main ContentWrapper -->
+    <div class="relative z-10 w-full flex flex-col items-center pt-32">
+
+        <!-- 1) Hero Section -->
+        <section id="hero" class="w-full max-w-7xl min-h-[85vh] flex flex-col lg:flex-row items-center justify-center px-6 lg:gap-16 relative">
+            
+            <!-- Left Side / Text -->
+            <div class="lg:w-3/5 flex flex-col items-center lg:items-start text-center lg:text-left z-20">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-xs font-medium text-brand-400 mb-8 animate-entry delay-100 shine-effect">
+                    <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                    Premium System 2.0
+                </div>
+
+                <h1 class="text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] text-white font-bricolage font-light tracking-tight mb-6 animate-entry delay-200">
+                    Design <span class="italic font-medium text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-200 to-brand-500">Elegance.</span><br />
+                    Engineered for <br/> Absolute Scale.
+                </h1>
+
+                <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mb-12 font-sans animate-entry delay-300">
+                    A comprehensive, futuristic UI language utilizing deep contrasts, electric color accents, and precise volumetric components. Ready for production.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-5 animate-entry delay-400">
+                    <!-- Advanced 3D Hover Button -->
+                    <button class="btn-3d group flex items-center justify-center gap-3 rounded-full bg-gradient-to-t from-brand-600 via-brand-500 to-amber-500 px-8 py-4 text-base font-semibold text-white shadow-[0_0_40px_-5px_rgba(249,115,22,0.6)] ring-1 ring-inset ring-white/30 transition-shadow duration-300"
+                            onmousemove="const rect = this.getBoundingClientRect(); const x = event.clientX - rect.left; const y = event.clientY - rect.top; const centerX = rect.width / 2; const centerY = rect.height / 2; const rotateX = ((y - centerY) / centerY) * -15; const rotateY = ((x - centerX) / centerX) * 15; this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`; "
+                            onmouseout="this.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`; this.style.boxShadow = '0 0 40px -5px rgba(249,115,22,0.6)'; "
+                            onmouseover="this.style.boxShadow = '0 0 60px 0px rgba(249,115,22,0.8), inset 0 2px 8px rgba(255, 255, 255, 0.5)'; ">
+                        <i data-lucide="layers" class="w-5 h-5 drop-shadow-md"></i>
+                        <span>Explore Components</span>
+                    </button>
+                    
+                    <button class="px-8 py-4 rounded-full border border-white/20 hover:border-white/50 bg-white/5 backdrop-blur-md text-white font-medium transition-all group flex items-center gap-2">
+                        View Patterns
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Side / Electric Card Demo -->
+            <div class="lg:w-2/5 mt-16 lg:mt-0 flex justify-center z-20 animate-entry delay-500 w-full max-w-md">
+                <div class="w-full relative bg-neutral-900/80 rounded-[32px] p-[2px] electric-card overflow-hidden backdrop-blur-xl group cursor-pointer hover:-translate-y-2 transition-transform duration-500">
+                    <!-- Border Gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-amber-300 via-brand-500 to-transparent opacity-70 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+                    
+                    <div class="relative z-10 bg-[#0A0A0A] rounded-[30px] h-full p-8 flex flex-col items-start overflow-hidden w-full">
+                        <div class="absolute top-0 right-[-50px] w-64 h-64 bg-gradient-to-b from-brand-600/30 to-transparent rounded-full filter blur-[50px] mix-blend-screen pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+
+                        <div class="flex justify-between w-full items-center mb-6 relative">
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-neutral-300 border border-white/10 px-3 py-1.5 rounded bg-white/5 flex items-center gap-2 shadow-inner">
+                                <span class="relative flex h-2 w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                                </span>
+                                System Live
+                            </span>
+                            <div class="flex gap-1">
+                                <span class="w-2 h-2 rounded-full bg-white/20"></span>
+                                <span class="w-2 h-2 rounded-full bg-white/20"></span>
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl font-bricolage text-white font-medium mb-2 tracking-tight">Performance Matrix</h3>
+                        <p class="text-xs text-neutral-400 leading-relaxed mb-8">Real-time telemetry and component utilization tracking parameters.</p>
+
+                        <div class="w-full mb-8">
+                            <div class="flex items-end gap-3 mb-2">
+                                <span class="text-5xl text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-300 font-bricolage font-light tracking-tight">
+                                    99.9%
+                                </span>
+                                <span class="text-xs text-emerald-400 flex items-center bg-emerald-400/10 border border-emerald-400/20 px-2 py-1 rounded-md mb-2 font-medium">
+                                    <i data-lucide="trending-up" class="w-3 h-3 mr-1"></i> Efficiency
+                                </span>
+                            </div>
+                            
+                            <!-- Sparkline Demo -->
+                            <div class="w-full h-16 relative mt-4 border-b border-white/10">
+                                <svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 300 60">
+                                    <defs>
+                                        <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#f97316" stop-opacity="0.4" />
+                                            <stop offset="100%" stop-color="#f97316" stop-opacity="0" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M0 60 C 40 40, 60 55, 100 25 C 140 -5, 170 30, 200 15 C 240 0, 260 20, 300 5 V 60 H 0 Z" fill="url(#lineGrad)" />
+                                    <path d="M0 60 C 40 40, 60 55, 100 25 C 140 -5, 170 30, 200 15 C 240 0, 260 20, 300 5" fill="none" stroke="#f97316" stroke-width="3" stroke-linecap="round" class="drop-shadow-[0_0_5px_rgba(249,115,22,0.8)]" />
+                                    <circle cx="300" cy="5" r="4" fill="#fff" stroke="#f97316" stroke-width="2" class="animate-pulse shadow-[0_0_10px_#f97316]" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 w-full justify-between items-center text-xs mt-auto">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-neutral-500 font-medium">Tokens Active</span>
+                                <span class="text-white font-bricolage text-lg">1,402</span>
+                            </div>
+                            <div class="flex flex-col gap-1 text-right">
+                                <span class="text-neutral-500 font-medium">Build Time</span>
+                                <span class="text-white font-bricolage text-lg">0.4s</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Floating Decorative Elements -->
+            <div class="absolute left-10 md:left-[10%] bottom-0 w-px h-32 bg-gradient-to-t from-brand-500 to-transparent opacity-50 hidden lg:block"></div>
+        </section>
+
+        <!-- Divider -->
+        <div class="w-full max-w-7xl px-6 my-20">
+            <div class="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+        </div>
+
+        <!-- 2) Typography Section -->
+        <section id="typography" class="w-full max-w-7xl px-6 py-16 relative">
+            <div class="mb-16 animate-on-scroll animate-scroll-reveal">
+                <div class="flex items-center gap-4 mb-4">
+                    <span class="w-1.5 h-1.5 bg-brand-500 shadow-[0_0_10px_#f97316]"></span>
+                    <span class="text-xs font-bold text-neutral-400 tracking-widest uppercase">System Reference / Core 01</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bricolage text-white font-light tracking-tight">Typography Hierarchy</h2>
+                <p class="mt-4 text-neutral-400 max-w-2xl text-lg">Type scale, weights, and styles defined meticulously using Bricolage Grotesque (Display) and Inter (Body).</p>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-8 md:p-12 mb-12 animate-on-scroll animate-scroll-reveal delay-200">
+                <div class="space-y-10">
+                    <!-- Heading 1 -->
+                    <div class="flex flex-col md:flex-row items-baseline justify-between border-b border-white/5 pb-6 group">
+                        <div class="flex-1">
+                            <div class="text-[10px] text-neutral-500 mb-1 uppercase tracking-widest font-bold">Display 1 (H1)</div>
+                            <h1 class="text-5xl md:text-7xl font-bricolage font-light text-white tracking-tight group-hover:text-brand-300 transition-colors">Cognition System</h1>
+                        </div>
+                        <div class="text-xs text-neutral-500 font-mono mt-4 md:mt-0 text-left md:text-right">Bricolage / Light 300<br/>72px / 1.05 lh</div>
+                    </div>
+
+                    <!-- Heading 2 -->
+                    <div class="flex flex-col md:flex-row items-baseline justify-between border-b border-white/5 pb-6 group">
+                        <div class="flex-1">
+                            <div class="text-[10px] text-neutral-500 mb-1 uppercase tracking-widest font-bold">Heading 2 (H2)</div>
+                            <h2 class="text-4xl md:text-5xl font-bricolage font-normal text-white tracking-tight group-hover:text-brand-300 transition-colors">Architectural Patterns</h2>
+                        </div>
+                        <div class="text-xs text-neutral-500 font-mono mt-4 md:mt-0 text-left md:text-right">Bricolage / Normal 400<br/>48px / 1.1 lh</div>
+                    </div>
+
+                    <!-- Heading 3 -->
+                    <div class="flex flex-col md:flex-row items-baseline justify-between border-b border-white/5 pb-6 group">
+                        <div class="flex-1">
+                            <div class="text-[10px] text-neutral-500 mb-1 uppercase tracking-widest font-bold">Heading 3 (H3)</div>
+                            <h3 class="text-2xl md:text-3xl font-bricolage font-medium text-white tracking-tight group-hover:text-white transition-colors">Component Specifications</h3>
+                        </div>
+                        <div class="text-xs text-neutral-500 font-mono mt-4 md:mt-0 text-left md:text-right">Bricolage / Medium 500<br/>30px / 1.3 lh</div>
+                    </div>
+
+                    <!-- Body Large -->
+                    <div class="flex flex-col md:flex-row justify-between border-b border-white/5 pb-6 group">
+                        <div class="flex-1 max-w-2xl">
+                            <div class="text-[10px] text-neutral-500 mb-2 uppercase tracking-widest font-bold">Body Large</div>
+                            <p class="text-lg md:text-xl text-neutral-300 font-sans leading-relaxed">The quick brown fox jumps over the lazy dog. This block demonstrates the long-form reading capabilities of the Inter typeface with ample line height.</p>
+                        </div>
+                        <div class="text-xs text-neutral-500 font-mono mt-4 md:mt-0 text-left md:text-right md:pl-4">Inter / Regular 400<br/>18px / 1.6 lh</div>
+                    </div>
+
+                    <!-- Body Small -->
+                    <div class="flex flex-col md:flex-row justify-between pb-2 group">
+                        <div class="flex-1 max-w-2xl">
+                            <div class="text-[10px] text-neutral-500 mb-2 uppercase tracking-widest font-bold">Caption / Label</div>
+                            <p class="text-xs text-neutral-400 font-sans uppercase tracking-[0.1em]">Secondary information and helper text.</p>
+                        </div>
+                        <div class="text-xs text-neutral-500 font-mono mt-4 md:mt-0 text-left md:text-right md:pl-4">Inter / Medium 500<br/>12px / Uppercase</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3) Color System Section -->
+        <section id="colors" class="w-full max-w-7xl px-6 py-16 relative">
+            <div class="mb-16 animate-on-scroll animate-scroll-reveal">
+                <div class="flex items-center gap-4 mb-4">
+                    <span class="w-1.5 h-1.5 bg-amber-500 shadow-[0_0_10px_#f59e0b]"></span>
+                    <span class="text-xs font-bold text-neutral-400 tracking-widest uppercase">System Reference / Core 02</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bricolage text-white font-light tracking-tight">Chromatic Scale</h2>
+                <p class="mt-4 text-neutral-400 max-w-2xl text-lg">A deep, contrasting palette emphasizing electric amber and orange hues for primary interaction layers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                
+                <!-- Primary Action -->
+                <div class="glass-panel p-4 rounded-3xl animate-on-scroll animate-scroll-reveal delay-100 group cursor-pointer hover:border-brand-500/50 transition-colors">
+                    <div class="w-full h-32 rounded-2xl bg-brand-500 shadow-[0_5px_30px_rgba(249,115,22,0.4)] mb-4 group-hover:scale-[1.02] transition-transform"></div>
+                    <h4 class="font-bricolage text-lg text-white mb-1">Brand Primary</h4>
+                    <p class="text-xs text-neutral-500 font-mono mb-2">#f97316 / brand-500</p>
+                    <div class="flex justify-between text-[10px] text-neutral-400 font-mono bg-black/50 p-2 rounded">
+                        <span>Role: Action, Glow</span>
+                        <span class="text-emerald-400">AAA Contrast</span>
+                    </div>
+                </div>
+
+                <!-- Secondary Accent -->
+                <div class="glass-panel p-4 rounded-3xl animate-on-scroll animate-scroll-reveal delay-200 group cursor-pointer hover:border-amber-400/50 transition-colors">
+                    <div class="w-full h-32 rounded-2xl bg-amber-400 shadow-[0_5px_30px_rgba(251,191,36,0.3)] mb-4 group-hover:scale-[1.02] transition-transform"></div>
+                    <h4 class="font-bricolage text-lg text-white mb-1">Amber Accent</h4>
+                    <p class="text-xs text-neutral-500 font-mono mb-2">#fbbf24 / amber-400</p>
+                    <div class="flex justify-between text-[10px] text-neutral-400 font-mono bg-black/50 p-2 rounded">
+                        <span>Role: Highlights</span>
+                        <span class="text-emerald-400">AA Contrast</span>
+                    </div>
+                </div>
+
+                <!-- Surface Base -->
+                <div class="glass-panel p-4 rounded-3xl border-transparent animate-on-scroll animate-scroll-reveal delay-300 group cursor-pointer transition-colors bg-[#0A0A0A] border hover:border-white/20">
+                    <div class="w-full h-32 rounded-2xl bg-[#111111] border border-white/5 mb-4 group-hover:scale-[1.02] transition-transform"></div>
+                    <h4 class="font-bricolage text-lg text-white mb-1">Surface Raised</h4>
+                    <p class="text-xs text-neutral-500 font-mono mb-2">#111111 / Custom</p>
+                    <div class="flex justify-between text-[10px] text-neutral-400 font-mono bg-black/50 p-2 rounded">
+                        <span>Role: Cards, Modals</span>
+                        <span class="text-neutral-500">N/A</span>
+                    </div>
+                </div>
+
+                <!-- Neutral Text -->
+                <div class="glass-panel p-4 rounded-3xl animate-on-scroll animate-scroll-reveal delay-400 group cursor-pointer hover:border-neutral-300/50 transition-colors">
+                    <div class="w-full h-32 rounded-2xl bg-neutral-300 mb-4 group-hover:scale-[1.02] transition-transform"></div>
+                    <h4 class="font-bricolage text-lg text-white mb-1">Neutral Text</h4>
+                    <p class="text-xs text-neutral-500 font-mono mb-2">#d4d4d8 / neutral-300</p>
+                    <div class="flex justify-between text-[10px] text-neutral-400 font-mono bg-black/50 p-2 rounded">
+                        <span>Role: Body Content</span>
+                        <span class="text-emerald-400">AAA Contrast</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Gradients Showcase -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 animate-on-scroll animate-scroll-reveal delay-500">
+                <div class="glass-panel rounded-3xl p-6 relative overflow-hidden h-40 flex items-center group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-brand-600 via-brand-500 to-amber-400 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="relative z-10 w-full flex justify-between items-center text-white px-4">
+                        <span class="font-bricolage text-2xl drop-shadow-md font-medium">Warm Plasma</span>
+                        <span class="text-xs font-mono drop-shadow-md bg-black/20 p-2 rounded-lg backdrop-blur-sm">from-brand-600 to-amber-400</span>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-3xl p-6 relative overflow-hidden h-40 flex items-center group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-neutral-800 to-neutral-500 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="relative z-10 w-full flex justify-between items-center text-white px-4">
+                        <span class="font-bricolage text-2xl drop-shadow-md font-medium">Steel Graphite</span>
+                        <span class="text-xs font-mono drop-shadow-md bg-black/20 p-2 rounded-lg backdrop-blur-sm">from-neutral-800 to-neutral-500</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4) UI Components Section -->
+        <section id="components" class="w-full max-w-7xl px-6 py-16 relative">
+            <div class="absolute left-0 -top-40 w-[600px] h-[600px] bg-brand-900/10 blur-[150px] rounded-full pointer-events-none"></div>
+
+            <div class="mb-16 animate-on-scroll animate-scroll-reveal">
+                <div class="flex items-center gap-4 mb-4">
+                    <span class="w-1.5 h-1.5 bg-white shadow-[0_0_10px_#fff]"></span>
+                    <span class="text-xs font-bold text-neutral-400 tracking-widest uppercase">System Reference / Core 03</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bricolage text-white font-light tracking-tight">Interactive Components</h2>
+                <p class="mt-4 text-neutral-400 max-w-2xl text-lg">Buttons, Inputs, and status indicators designed with detailed focus logic and fluid multi-layered hover states.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Buttons & Badges -->
+                <div class="space-y-10 animate-on-scroll animate-scroll-reveal delay-200">
+                    
+                    <div class="glass-panel p-8 rounded-3xl">
+                        <h3 class="font-bricolage text-xl text-white mb-6 border-b border-white/5 pb-2">Buttons Matrix</h3>
+                        <div class="flex flex-wrap gap-6 items-center">
+                            <!-- Primary -->
+                            <button class="relative bg-brand-500 text-white font-medium px-6 py-2.5 rounded-full hover:bg-brand-400 transition-colors shadow-[0_0_20px_rgba(249,115,22,0.4)] focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-black">
+                                Primary Action
+                            </button>
+                            <!-- Secondary / Glass -->
+                            <button class="px-6 py-2.5 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white font-medium hover:bg-white/10 hover:border-white/30 transition-all focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-black">
+                                Outline Subtle
+                            </button>
+                            <!-- Icon Button -->
+                            <button class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center border border-white/10 hover:bg-brand-500 hover:border-brand-400 transition-all group">
+                                <i data-lucide="plus" class="w-5 h-5 text-white group-hover:scale-110 transition-transform"></i>
+                            </button>
+                            <!-- Subtle Text Link -->
+                            <button class="text-neutral-400 hover:text-white font-medium text-sm flex items-center gap-1 transition-colors group">
+                                Learn More
+                                <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-8 rounded-3xl">
+                        <h3 class="font-bricolage text-xl text-white mb-6 border-b border-white/5 pb-2">Badges & Tags</h3>
+                        <div class="flex flex-wrap gap-4 items-center">
+                            <!-- Live Status -->
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
+                                <span class="relative flex h-2 w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                </span>
+                                Operational
+                            </div>
+                            <!-- Pro Tag -->
+                            <div class="inline-flex px-2.5 py-1 rounded bg-gradient-to-r from-amber-500 to-brand-500 text-white text-[10px] font-bold uppercase tracking-wider shadow-md">
+                                Enterprise
+                            </div>
+                            <!-- Basic Tag -->
+                            <div class="inline-flex px-3 py-1 rounded-full bg-white/10 text-neutral-300 text-xs font-medium hover:bg-white/20 cursor-pointer transition-colors border border-white/5">
+                                Metadata Tag
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Inputs & Complex Cards -->
+                <div class="space-y-10 animate-on-scroll animate-scroll-reveal delay-400">
+                    
+                    <div class="glass-panel p-8 rounded-3xl">
+                        <h3 class="font-bricolage text-xl text-white mb-6 border-b border-white/5 pb-2">Form Elements</h3>
+                        <div class="space-y-5">
+                            <!-- Search Input -->
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-500 group-focus-within:text-brand-500 transition-colors">
+                                    <i data-lucide="search" class="w-4 h-4"></i>
+                                </div>
+                                <input type="text" placeholder="Search architecture..." class="block w-full bg-[#050505] border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all shadow-inner">
+                            </div>
+
+                            <!-- Toggle -->
+                            <div class="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-white font-medium">Enable Telemetry</span>
+                                    <span class="text-xs text-neutral-500">Send anonymous usage data</span>
+                                </div>
+                                <button class="w-10 h-6 bg-brand-500 rounded-full relative transition-colors focus:outline-none ring-2 ring-transparent focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-black">
+                                    <span class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm transition-transform"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-8 rounded-3xl">
+                        <h3 class="font-bricolage text-xl text-white mb-6 border-b border-white/5 pb-2">Data Overlays / Tooltips</h3>
+                        
+                        <div class="flex items-center justify-center p-10 bg-[#080808] rounded-2xl border border-white/5 relative">
+                            <!-- Tooltip wrapper -->
+                            <div class="relative group cursor-help flex items-center gap-2 text-white">
+                                <i data-lucide="info" class="w-5 h-5 text-neutral-400 group-hover:text-amber-400 transition-colors"></i>
+                                Hover me
+                                <!-- Tooltip Body -->
+                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-4 py-3 bg-neutral-900 border border-white/10 rounded-xl text-xs text-neutral-300 w-48 shadow-xl opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 pointer-events-none transition-all duration-300 z-10 glass-panel">
+                                    Information revealed gracefully on interaction. Pure CSS.
+                                    <div class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-neutral-900"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 5) Icons System Section -->
+        <section id="icons" class="w-full max-w-7xl px-6 py-16 mb-20 relative">
+            <div class="glass-panel rounded-3xl p-10 md:p-16 animate-on-scroll animate-scroll-reveal border-t border-brand-500/30">
+                <div class="mb-10 text-center flex flex-col items-center">
+                    <h2 class="text-3xl md:text-4xl font-bricolage text-white font-light tracking-tight mb-4">Lucide Iconography</h2>
+                    <p class="text-neutral-400 max-w-xl text-center">A minimal, crisp vector icon set used exclusively for functional clarity across the UI.</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    <!-- Icon blocks -->
+                    <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/10 group cursor-pointer">
+                        <i data-lucide="cpu" class="w-8 h-8 text-neutral-400 group-hover:text-brand-400 transition-colors"></i>
+                        <span class="text-[10px] text-neutral-500 font-mono">cpu</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/10 group cursor-pointer">
+                        <i data-lucide="database" class="w-8 h-8 text-neutral-400 group-hover:text-brand-400 transition-colors"></i>
+                        <span class="text-[10px] text-neutral-500 font-mono">database</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/10 group cursor-pointer">
+                        <i data-lucide="shield" class="w-8 h-8 text-neutral-400 group-hover:text-brand-400 transition-colors"></i>
+                        <span class="text-[10px] text-neutral-500 font-mono">shield</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/10 group cursor-pointer">
+                        <i data-lucide="zap" class="w-8 h-8 text-neutral-400 group-hover:text-brand-400 transition-colors"></i>
+                        <span class="text-[10px] text-neutral-500 font-mono">zap</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/10 group cursor-pointer">
+                        <i data-lucide="fingerprint" class="w-8 h-8 text-neutral-400 group-hover:text-brand-400 transition-colors"></i>
+                        <span class="text-[10px] text-neutral-500 font-mono">fingerprint</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/10 group cursor-pointer">
+                        <i data-lucide="network" class="w-8 h-8 text-neutral-400 group-hover:text-brand-400 transition-colors"></i>
+                        <span class="text-[10px] text-neutral-500 font-mono">network</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="w-full border-t border-white/10 mt-auto py-8">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs text-neutral-500">
+                <div class="flex items-center gap-2 mb-4 md:mb-0">
+                    <i data-lucide="asterisk" class="w-4 h-4 text-brand-500"></i>
+                    <span>Luminous Design System. Reimagined via AI.</span>
+                </div>
+                <div class="font-mono bg-white/5 px-2 py-1 rounded">v2.0.0-rc</div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Initialization Scripts -->
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Setup Intersection Observer for scroll animations
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // Trigger when 15% visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        // Optional: stop observing once animated
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

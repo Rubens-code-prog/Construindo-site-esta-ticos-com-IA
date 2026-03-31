@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>DS1 - Luminous Neon</title>
+    
+    <!-- References to main template assets -->
+    <script src="Templates/ai-social-automation.aura.build/assets/lucide_latest_2eebd0ebe8c2.js"></script>
+    <script src="Templates/ai-social-automation.aura.build/assets/resource_3fa48481346f.js"></script>
+    
+    <style>
+        @import url("Templates/ai-social-automation.aura.build/assets/css2_19fd9cc6b396.css");
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030303;
+            color: #ffffff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* WebGL Background Canvas Placeholder effect from futuristic-technology */
+        .futuristic-bg {
+            background-image: 
+                linear-gradient(to right, rgba(249, 115, 22, 0.03) 1px, transparent 1px), 
+                linear-gradient(rgba(249, 115, 22, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* DS1 Specific Glows & Borders */
+        .electric-card {
+            box-shadow: 0 0 40px rgba(249, 115, 22, 0.4), inset 0 0 20px rgba(249, 115, 22, 0.1);
+        }
+        
+        .electric-border {
+            background: linear-gradient(180deg, rgba(251, 146, 60, 1) 0%, rgba(251, 146, 60, 0) 100%);
+        }
+
+        .stars {
+            background-image:
+                radial-gradient(1px 1px at 20px 30px, #ffb347, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 130px 80px, #ffb347, rgba(0,0,0,0));
+            background-size: 200px 200px;
+            opacity: 0.4;
+            animation: slowPan 30s linear infinite;
+        }
+
+        @keyframes slowPan {
+            from { background-position: 0 0; }
+            to { background-position: -200px 200px; }
+        }
+
+        /* Animations */
+        @keyframes fadeInUpBlur {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(12px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        .animate-entry { animation: fadeInUpBlur 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        
+        /* Data node pulsing animation */
+        @keyframes pulseNode {
+            0%, 100% { box-shadow: 0 0 10px rgba(249, 115, 22, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(249, 115, 22, 1); transform: scale(1.1); }
+        }
+        .data-node {
+            animation: pulseNode 3s infinite ease-in-out;
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <link href="Templates/ai-social-automation.aura.build/assets/css2_a7b22b336fe1.css" rel="stylesheet"/>
+</head>
+<body class="selection:bg-orange-500/30">
+
+    <!-- Ambient Glows & Background Nodes -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="futuristic-bg"></div>
+        <div class="stars absolute inset-0"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] bg-orange-600/10 blur-[150px] rounded-full mix-blend-screen"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-orange-500/15 blur-[120px] rounded-full mix-blend-screen"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#030303]/70 backdrop-blur-xl border-b border-orange-500/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                <span class="text-xl font-bold tracking-widest text-white uppercase">DS1 Neon</span>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm text-neutral-400 font-medium">
+                <a href="#hero" class="hover:text-orange-400 transition-colors">Hero</a>
+                <a href="#typography" class="hover:text-orange-400 transition-colors">Typography</a>
+                <a href="#colors" class="hover:text-orange-400 transition-colors">Colors</a>
+                <a href="#components" class="hover:text-orange-400 transition-colors">Components</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1) Hero Section -->
+    <section id="hero" class="relative z-10 min-h-screen flex items-center justify-center pt-20 pb-32">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Hero Text content -->
+            <div class="flex flex-col items-start relative z-10 animate-entry">
+                <div class="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-500/30 bg-orange-500/10 backdrop-blur-md text-orange-300 text-xs font-semibold uppercase tracking-widest">
+                    <span class="w-2 h-2 rounded-full bg-orange-500 data-node"></span>
+                    Centralized UI Data
+                </div>
+                
+                <h1 class="text-6xl md:text-[84px] leading-[0.9] text-white font-light tracking-tighter mb-8" style="font-family: 'Bricolage Grotesque', sans-serif;">
+                    LUMINOUS <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-500">NEON SYSTEM</span>
+                </h1>
+                
+                <p class="text-lg text-neutral-400 max-w-lg mb-10 leading-relaxed font-sans">
+                    A futuristic design language focusing on hyper-charged interactions, glowing datalinks, and extreme contrast ratios meant for high-end digital applications.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button class="relative group overflow-hidden rounded-full bg-neutral-900 border border-orange-500/50 px-8 py-4 text-white font-medium hover:scale-105 transition-all shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)]">
+                        <span class="relative z-10">Access Library</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </button>
+                    <button class="px-8 py-4 rounded-full border border-white/10 bg-transparent text-white font-medium hover:bg-white/5 transition-colors backdrop-blur-md">
+                        Documentation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Graphic (Widget combination) -->
+            <div class="relative flex justify-center lg:justify-end animate-entry delay-200">
+                <div class="w-[400px] h-[500px] rounded-[40px] bg-[#0A0A0A] border border-orange-500/20 p-8 electric-card relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-yellow-500/10 blur-[80px] rounded-full pointer-events-none"></div>
+                    
+                    <div class="flex justify-between items-center mb-10 relative z-10">
+                        <div class="w-8 h-8 rounded-full border border-orange-400 flex items-center justify-center">
+                            <span class="w-2 h-2 rounded-full bg-orange-400 data-node"></span>
+                        </div>
+                        <span class="text-xs uppercase text-orange-400 tracking-widest font-mono">System Active</span>
+                    </div>
+
+                    <div class="space-y-6 relative z-10">
+                        <div class="h-2 w-full bg-neutral-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-orange-600 to-yellow-400 w-3/4"></div>
+                        </div>
+                        <h3 class="text-3xl font-light text-white" style="font-family: 'Bricolage Grotesque', sans-serif;">Data Nodes</h3>
+                        <p class="text-sm text-neutral-500 leading-relaxed">Processing 12,045 core interactions globally within the neon framework.</p>
+                    </div>
+
+                    <!-- Glowing Cards inside -->
+                    <div class="space-y-4 relative z-10">
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between hover:bg-orange-500/10 hover:border-orange-500/30 transition-colors cursor-pointer group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                </div>
+                                <span class="font-medium text-white">Rapid Render</span>
+                            </div>
+                            <span class="text-xs text-orange-400 font-mono">99.8%</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between cursor-not-allowed opacity-50">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                                <span class="font-medium text-white">Encrypted</span>
+                            </div>
+                            <span class="text-xs text-neutral-500 font-mono">LOCKED</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2) Typography -->
+    <section id="typography" class="relative z-10 py-24 bg-[#0A0A0A]/50 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-sm text-orange-500 uppercase tracking-[0.3em] font-semibold mb-2">02 / Fonts</h2>
+            <h3 class="text-5xl text-white font-light tracking-tight mb-16" style="font-family: 'Bricolage Grotesque', sans-serif;">Typography Scale</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div class="space-y-12">
+                    <div class="border-b border-white/10 pb-6">
+                        <span class="text-xs text-neutral-500 uppercase tracking-widest flex justify-between mb-4"><span>Display H1</span> <span class="font-mono text-orange-400">84px / Light</span></span>
+                        <h1 class="text-[84px] leading-none text-white font-light" style="font-family: 'Bricolage Grotesque', sans-serif;">Design.</h1>
+                    </div>
+                    <div class="border-b border-white/10 pb-6">
+                        <span class="text-xs text-neutral-500 uppercase tracking-widest flex justify-between mb-4"><span>Heading H2</span> <span class="font-mono text-orange-400">48px / Medium</span></span>
+                        <h2 class="text-5xl leading-tight text-white font-medium" style="font-family: 'Bricolage Grotesque', sans-serif;">Component Built</h2>
+                    </div>
+                    <div class="border-b border-white/10 pb-6">
+                        <span class="text-xs text-neutral-500 uppercase tracking-widest flex justify-between mb-4"><span>Heading H3</span> <span class="font-mono text-orange-400">32px / Regular</span></span>
+                        <h3 class="text-3xl leading-snug text-white font-normal" style="font-family: 'Bricolage Grotesque', sans-serif;">Interface Structures</h3>
+                    </div>
+                </div>
+                
+                <div class="space-y-12 pt-4">
+                    <div class="border-b border-white/10 pb-6">
+                        <span class="text-xs text-neutral-500 uppercase tracking-widest flex justify-between mb-4"><span>Body Large</span> <span class="font-mono text-orange-400">18px / Inter / 160%</span></span>
+                        <p class="text-lg text-neutral-300 leading-relaxed font-sans">
+                            The quick brown fox jumps over the lazy dog. A sophisticated paragraph demonstrating standard reading constraints and layout dynamics inside the luminous framework.
+                        </p>
+                    </div>
+                    <div class="border-b border-white/10 pb-6">
+                        <span class="text-xs text-neutral-500 uppercase tracking-widest flex justify-between mb-4"><span>Body Standard</span> <span class="font-mono text-orange-400">14px / Inter / 150%</span></span>
+                        <p class="text-sm text-neutral-400 leading-relaxed font-sans">
+                            A secondary paragraph used for standard UI components, cards, and modal texts. It offers extreme clarity against high-contrast backgrounds.
+                        </p>
+                    </div>
+                    <div class="border-b border-white/10 pb-6">
+                        <span class="text-xs text-neutral-500 uppercase tracking-widest flex justify-between mb-4"><span>Helper & Caption</span> <span class="font-mono text-orange-400">12px / Inter / Uppercase</span></span>
+                        <p class="text-xs text-neutral-500 uppercase tracking-widest font-sans">
+                            Status: System Operational - Node 01
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3) Colors -->
+    <section id="colors" class="relative z-10 py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-sm text-orange-500 uppercase tracking-[0.3em] font-semibold mb-2">03 / Palette</h2>
+            <h3 class="text-5xl text-white font-light tracking-tight mb-16" style="font-family: 'Bricolage Grotesque', sans-serif;">Color System</h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Neons -->
+                <div class="rounded-3xl overflow-hidden bg-[#0A0A0A] border border-white/5">
+                    <div class="h-32 bg-orange-500 w-full relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-white font-medium mb-1">Neon Primary</p>
+                        <p class="text-xs text-neutral-500 font-mono">HEX #F97316 <br/> HSL 24, 95%, 53%</p>
+                    </div>
+                </div>
+                <div class="rounded-3xl overflow-hidden bg-[#0A0A0A] border border-white/5">
+                    <div class="h-32 bg-yellow-400 w-full relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-white font-medium mb-1">Neon Accent</p>
+                        <p class="text-xs text-neutral-500 font-mono">HEX #FACC15 <br/> HSL 47, 95%, 53%</p>
+                    </div>
+                </div>
+                <!-- Neutrals -->
+                <div class="rounded-3xl overflow-hidden bg-[#0A0A0A] border border-white/5">
+                    <div class="h-32 bg-[#0A0A0A] w-full border-b border-white/10 relative"></div>
+                    <div class="p-5">
+                        <p class="text-white font-medium mb-1">Surface Dark</p>
+                        <p class="text-xs text-neutral-500 font-mono">HEX #0A0A0A <br/> HSL 0, 0%, 4%</p>
+                    </div>
+                </div>
+                <div class="rounded-3xl overflow-hidden bg-[#0A0A0A] border border-white/5">
+                    <div class="h-32 bg-neutral-800 w-full border-b border-white/10 relative"></div>
+                    <div class="p-5">
+                        <p class="text-white font-medium mb-1">Surface Hover</p>
+                        <p class="text-xs text-neutral-500 font-mono">HEX #262626 <br/> HSL 0, 0%, 15%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 p-8 rounded-[32px] bg-gradient-to-r from-orange-600 via-yellow-500 to-orange-400 electric-card relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjMpIi8+PC9zdmc+')]"></div>
+                <div class="relative z-10">
+                    <h3 class="text-2xl text-white font-medium mb-2">Master Gradient</h3>
+                    <p class="text-white/80 font-mono text-sm max-w-xl">
+                        Used for aggressive call-to-actions and massive typography highlights. Applies via `bg-gradient-to-r from-orange-600 via-yellow-500 to-orange-400`.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4) Components -->
+    <section id="components" class="relative z-10 py-24 bg-[#050505] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-sm text-orange-500 uppercase tracking-[0.3em] font-semibold mb-2">04 / UI Elements</h2>
+            <h3 class="text-5xl text-white font-light tracking-tight mb-16" style="font-family: 'Bricolage Grotesque', sans-serif;">Component Library</h3>
+
+            <!-- Buttons & Badges -->
+            <div class="mb-16">
+                <h4 class="text-xl text-white mb-6 border-b border-white/10 pb-4">Buttons & Controls</h4>
+                <div class="flex flex-wrap gap-6 items-center bg-[#0A0A0A] p-10 rounded-[32px] border border-white/5 shadow-inner">
+                    
+                    <!-- Solid Neon Button -->
+                    <button class="relative group px-8 py-3 rounded-full bg-orange-500 text-white font-semibold transition-all hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(249,115,22,0.8)]">
+                        Primary Action
+                    </button>
+                    
+                    <!-- Outline Button -->
+                    <button class="px-8 py-3 rounded-full border-2 border-orange-500 text-orange-400 font-semibold hover:bg-orange-500 hover:text-white transition-all">
+                        Secondary Outline
+                    </button>
+                    
+                    <!-- Ghost Button -->
+                    <button class="px-6 py-3 rounded-full text-neutral-400 font-medium hover:bg-white/5 hover:text-white transition-all flex items-center gap-2">
+                        <span>Ghost State</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </button>
+
+                    <!-- Toggle Data -->
+                    <div class="flex items-center gap-3 bg-black border border-white/10 p-2 rounded-full">
+                        <div class="w-full text-xs text-neutral-400 px-3 uppercase tracking-wider font-mono">Sync</div>
+                        <button class="w-12 h-6 bg-orange-500 rounded-full relative transition-colors shadow-[0_0_10px_rgba(249,115,22,0.5)]">
+                            <span class="absolute right-1 top-1 w-4 h-4 rounded-full bg-white shadow-sm"></span>
+                        </button>
+                    </div>
+
+                    <!-- Badges -->
+                    <div class="flex gap-3 ml-auto">
+                        <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-orange-500/10 text-orange-400 border border-orange-500/20">LIVE</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">STABLE</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modals & Inputs -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Modals/Cards -->
+                <div>
+                    <h4 class="text-xl text-white mb-6 border-b border-white/10 pb-4">Complex Cards</h4>
+                    
+                    <div class="p-8 bg-neutral-900 border border-white/5 rounded-[32px] flex flex-col gap-6 relative group overflow-hidden hover:border-orange-500/30 transition-colors">
+                        <div class="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        
+                        <div class="relative z-10 flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                            </div>
+                            <button class="text-neutral-500 hover:text-white transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg>
+                            </button>
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <h5 class="text-lg font-medium text-white mb-2">Global Network Sync</h5>
+                            <p class="text-sm text-neutral-400 mb-6">Manage multi-regional data protocols across external servers dynamically.</p>
+                            
+                            <!-- Inline Progress -->
+                            <div class="w-full">
+                                <div class="flex justify-between text-xs font-mono text-neutral-500 mb-2">
+                                    <span>Syncing</span> <span>84%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-black rounded-full overflow-hidden">
+                                    <div class="h-full bg-orange-500 w-[84%] shadow-[0_0_10px_rgba(249,115,22,0.8)]"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inputs -->
+                <div>
+                    <h4 class="text-xl text-white mb-6 border-b border-white/10 pb-4">Form Inputs</h4>
+                    
+                    <div class="bg-[#0A0A0A] p-8 rounded-[32px] border border-white/5 space-y-6">
+                        
+                        <div class="space-y-2">
+                            <label class="text-xs font-mono text-neutral-400 uppercase tracking-wider">Email Address</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-neutral-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
+                                </div>
+                                <input type="email" placeholder="admin@luminous.io" class="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white text-sm focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all font-sans placeholder-neutral-600"/>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs font-mono text-neutral-400 uppercase tracking-wider flex justify-between">
+                                <span>Security Protocol</span>
+                                <span class="text-orange-400 font-semibold cursor-pointer">Generate Key</span>
+                            </label>
+                            <input type="password" value="********" class="w-full bg-black/50 border border-white/10 rounded-xl py-3 px-4 text-orange-400 font-mono text-sm tracking-widest focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"/>
+                            <p class="text-[10px] text-neutral-500 mt-1">Key must contain isolated 256-bit hashes.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tooltips & Setup -->
+            <div class="mt-16 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] border border-white/10 rounded-[32px] p-12 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 w-64 h-64 bg-orange-500/20 blur-[100px]"></div>
+                <h3 class="text-3xl font-light text-white mb-4 relative z-10" style="font-family: 'Bricolage Grotesque', sans-serif;">Setup Your Luminous Instance</h3>
+                <p class="text-neutral-400 mb-8 max-w-md mx-auto relative z-10">Generate your API keys to begin transmitting data onto the main visualizer grid.</p>
+                <button class="relative z-10 px-8 py-3 rounded-full bg-white text-black font-semibold hover:bg-neutral-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                    Initialize Setup
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-[#030303] py-10 text-center text-xs text-neutral-500 font-mono tracking-widest uppercase">
+        DS1 Luminous Neon System • 2026 Build
+    </footer>
+
+    <script>
+        // Trigger scroll animations dynamically for the neon system
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.animate-entry').forEach((el) => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
