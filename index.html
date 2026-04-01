@@ -522,7 +522,7 @@
         </section>
 
         <!-- 2) Investment Projects Section (End of 1st Fold) -->
-        <section class="w-full max-w-7xl px-6 relative z-20 mt-32 mb-40 h-[100vh] flex flex-col justify-center">
+        <section id="investment-projects" class="w-full max-w-7xl px-6 relative z-20 mt-32 mb-40 h-[100vh] flex flex-col justify-center">
             
             <div class="mb-10 w-full flex align-center justify-between items-end gsap-reveal opacity-0">
                 <div>
@@ -824,7 +824,8 @@
                 scrollTrigger: {
                     trigger: document.documentElement,
                     start: "top top",
-                    end: "max", // Dynamically binds to the maximum absolute scroll distance
+                    endTrigger: "#investment-projects",
+                    end: "top 30%", // The video will reach 100% exactly when the investment section hits upper-viewport
                     scrub: 1.2, // Balanced smooth interpolation
                 },
                 onUpdate: () => {
