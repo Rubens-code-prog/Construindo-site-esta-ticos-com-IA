@@ -438,7 +438,7 @@
     <main class="relative z-10 w-full flex flex-col items-center">
         
         <!-- 1) Hero Section (vh-screen) -->
-        <section class="w-full h-screen max-w-7xl flex flex-col lg:flex-row items-center justify-center px-6 lg:gap-16 relative">
+        <section id="hero-section" class="w-full h-screen max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center px-6 lg:gap-16 relative">
             
             <!-- Left Side / Typography -->
             <div class="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-20 pt-20">
@@ -543,6 +543,62 @@
                 </div>
             </div>
             
+        </section>
+
+        <!-- 1.5) Core Capabilities Section (Scroll Track for Video) -->
+        <section id="core-capabilities" class="w-full max-w-7xl mx-auto min-h-[150vh] px-6 py-32 flex flex-col justify-center items-center relative z-20">
+            
+            <div class="text-center mb-32 gsap-reveal w-full">
+                <span class="inline-block py-1 px-3 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold tracking-widest text-neutral-400 uppercase mb-4">Core Principles</span>
+                <h2 class="text-4xl md:text-6xl font-bricolage font-light text-white tracking-tight">Engineering <span class="text-brand-500 italic">Precision</span></h2>
+            </div>
+            
+            <div class="flex flex-col w-full max-w-4xl gap-24 relative">
+                <!-- Vertical connecting line -->
+                <div class="absolute left-[24px] md:left-1/2 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent md:-translate-x-1/2"></div>
+                
+                <!-- Competency 1 -->
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 w-full gsap-reveal">
+                    <div class="md:w-1/2 flex justify-start md:justify-end order-2 md:order-1">
+                        <div class="text-left md:text-right">
+                            <h3 class="text-3xl text-white font-bricolage mb-3">System Architecture</h3>
+                            <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">Designing robust, scalable infrastructures. Transforming complex business logic into maintainable, elegant codebases that withstand massive performance demands.</p>
+                        </div>
+                    </div>
+                    <div class="relative flex items-center justify-center w-12 h-12 rounded-full bg-brand-500/10 border border-brand-500/30 z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(249,115,22,0.2)]">
+                        <i data-lucide="cpu" class="w-5 h-5 text-brand-400"></i>
+                    </div>
+                    <div class="md:w-1/2 order-3 hidden md:block"></div>
+                </div>
+
+                <!-- Competency 2 -->
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 w-full gsap-reveal">
+                    <div class="md:w-1/2 order-3 md:order-1 hidden md:block"></div>
+                    <div class="relative flex items-center justify-center w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/30 z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+                        <i data-lucide="layers" class="w-5 h-5 text-cyan-400"></i>
+                    </div>
+                    <div class="md:w-1/2 flex justify-start md:justify-start order-2 md:order-3">
+                        <div class="text-left">
+                            <h3 class="text-3xl text-white font-bricolage mb-3">Immersive Interfaces</h3>
+                            <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">Crafting hyper-fluid WebGL and CSS-driven experiences. Pushing the boundaries of browser rendering to deliver cinematic visual storytelling.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Competency 3 -->
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 w-full gsap-reveal">
+                    <div class="md:w-1/2 flex justify-start md:justify-end order-2 md:order-1">
+                        <div class="text-left md:text-right">
+                            <h3 class="text-3xl text-white font-bricolage mb-3">Data Visualization</h3>
+                            <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">Distilling massive data sets into intuitive, interactive dashboards. Turning raw information noise into crystal-clear actionable insights.</p>
+                        </div>
+                    </div>
+                    <div class="relative flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+                        <i data-lucide="bar-chart-2" class="w-5 h-5 text-emerald-400"></i>
+                    </div>
+                    <div class="md:w-1/2 order-3 hidden md:block"></div>
+                </div>
+            </div>
         </section>
 
         <!-- 2) Investment Projects Section (End of 1st Fold) -->
@@ -854,7 +910,7 @@
                     start: "top top",
                     endTrigger: "#investment-projects",
                     end: "top 30%", // The video will reach 100% exactly when the investment section hits upper-viewport
-                    scrub: 1.2, // Balanced smooth interpolation
+                    scrub: 1.5, // Increased smoothing specifically for H.264 browser decoding
                 },
                 onUpdate: () => {
                     let duration = video.duration;
