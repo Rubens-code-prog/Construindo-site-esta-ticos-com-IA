@@ -95,7 +95,7 @@
         const revealElements = document.querySelectorAll('.gsap-reveal');
         revealElements.forEach((el) => {
             gsap.fromTo(el, 
-                { opacity: 0, y: 80, filter: "blur(12px)" },
+                { opacity: 0, y: 80 },
                 { 
                     scrollTrigger: {
                         trigger: el,
@@ -103,7 +103,6 @@
                     },
                     opacity: 1, 
                     y: 0, 
-                    filter: "blur(0px)",
                     duration: 1.2, 
                     ease: "power3.out"
                 }
@@ -203,14 +202,14 @@
 
             // Animate Sphere in
             dataTl.fromTo(sphereBg, 
-                { opacity: 0, scale: 0.3, filter: "blur(40px)" },
-                { opacity: 1, scale: 1, filter: "blur(0px)", duration: 2, ease: "power3.out" }
+                { opacity: 0, scale: 0.3 },
+                { opacity: 1, scale: 1, duration: 2, ease: "power3.out" }
             );
 
             // Stagger text and button
             dataTl.fromTo(dataReveals,
-                { opacity: 0, y: 50, filter: "blur(10px)" },
-                { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2, stagger: 0.15, ease: "power3.out" },
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 1.2, stagger: 0.15, ease: "power3.out" },
                 "-=1.2" // Start during the sphere animation
             );
 

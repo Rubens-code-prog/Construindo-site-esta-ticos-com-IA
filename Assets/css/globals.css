@@ -1,4 +1,4 @@
-﻿        body {
+        body {
             background-color: #030303;
             color: #ffffff;
             margin: 0;
@@ -137,8 +137,6 @@
             border-radius: 50%;
             border: 1px solid rgba(59, 130, 246, 0.4);
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.15), inset 0 0 15px rgba(59, 130, 246, 0.15);
-            /* Soft mix blend for cool overlaps */
-            mix-blend-mode: screen;
         }
 
         /* Longitudes */
@@ -207,9 +205,11 @@
             width: 100vw; height: 100vh;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.25;
+            opacity: 0.03;
+            background-color: transparent;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opactiy='0.5'/%3E%3C/svg%3E");
-            mix-blend-mode: overlay;
+            transform: translateZ(0); /* Force hardware layer caching */
+            will-change: transform;
         }
 
         /* Hover Polish */
