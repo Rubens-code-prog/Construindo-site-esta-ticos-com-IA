@@ -218,6 +218,100 @@
         .ring-13 { transform: translateY(-370px) rotateX(90deg) scale(0.35); }
         .ring-14 { transform: translateY(420px) rotateX(90deg) scale(0.15); }
         .ring-15 { transform: translateY(-420px) rotateX(90deg) scale(0.15); }
+        /* Premium Data Fold Animations */
+        @keyframes floatOrg {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+        .animate-float-slow { animation: floatOrg 12s ease-in-out infinite; }
+        .animate-float-fast { animation: floatOrg 8s ease-in-out infinite reverse; }
+
+        @keyframes flowGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background-size: 200% auto;
+            animation: flowGradient 4s linear infinite;
+        }
+
+        /* Premium CTA Fold Animations */
+        /* Perspective Floor Grid */
+        .grid-floor {
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(to right, rgba(249,115,22,0.15) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(249,115,22,0.15) 1px, transparent 1px);
+            background-size: 80px 80px;
+            transform: perspective(1000px) rotateX(75deg);
+            transform-origin: top;
+            animation: moveGrid 15s linear infinite;
+            mask-image: linear-gradient(to top, black 20%, transparent 80%);
+            -webkit-mask-image: linear-gradient(to top, black 20%, transparent 80%);
+        }
+        @keyframes moveGrid {
+            0% { transform: perspective(1000px) rotateX(75deg) translateY(0); }
+            100% { transform: perspective(1000px) rotateX(75deg) translateY(80px); }
+        }
+
+        /* Ascending Sparks */
+        .spark {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #f97316;
+            box-shadow: 0 0 10px #f97316, 0 0 20px #f97316;
+            bottom: -10px;
+            opacity: 0;
+            animation: ascendSpark 4s ease-in infinite;
+        }
+        @keyframes ascendSpark {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+        }
+
+        /* Hollow stroke text */
+        .text-stroke-brand {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Premium CTA Button Glow */
+        .btn-premium {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+        }
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent 70%, rgba(249,115,22,0.8) 100%);
+            animation: rotateSweep 4s linear infinite;
+            z-index: -2;
+        }
+        .btn-premium::after {
+            content: '';
+            position: absolute;
+            inset: 2px; /* Border thickness */
+            background: #030303;
+            border-radius: inherit;
+            z-index: -1;
+            transition: background 0.3s;
+        }
+        .btn-premium:hover::after {
+            background: rgba(249,115,22,0.1);
+        }
+        @keyframes rotateSweep {
+            100% { transform: rotate(360deg); }
+        }
 
         /* Fancy 3D Button Utility */
         .btn-3d { transition: transform 0.1s; }
@@ -485,6 +579,23 @@
             <div class="absolute inset-0 bg-[#020202]"></div>
             <div class="absolute inset-0 bg-grid pointer-events-none opacity-50"></div>
             <div class="stars absolute inset-0 pointer-events-none opacity-60"></div>
+
+            <!-- Premium: Floating Ambient Orbs -->
+            <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-blue-900/15 blur-[150px] rounded-full mix-blend-screen pointer-events-none animate-float-slow" id="orb-1"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-900/10 blur-[120px] rounded-full mix-blend-screen pointer-events-none animate-float-fast" id="orb-2"></div>
+
+            <!-- Premium: Data Streams (Scanner Beams) -->
+            <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl pointer-events-none flex justify-evenly z-0 opacity-40">
+                <div class="w-px h-full bg-blue-500/[0.02] relative overflow-hidden hidden md:block">
+                    <div class="beam-line" style="animation-duration: 3s; animation-delay: 0s; background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.8), transparent);"></div>
+                </div>
+                <div class="w-px h-full bg-cyan-500/[0.02] relative overflow-hidden">
+                    <div class="beam-line" style="animation-duration: 5s; animation-delay: 1.5s; background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.5), transparent);"></div>
+                </div>
+                <div class="w-px h-full bg-blue-500/[0.02] relative overflow-hidden hidden lg:block">
+                    <div class="beam-line" style="animation-duration: 4s; animation-delay: 3s; background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.6), transparent);"></div>
+                </div>
+            </div>
             
             <!-- CSS 3D Sphere -->
             <div class="sphere-container" id="sphere-bg">
@@ -512,18 +623,18 @@
             <!-- Overlaid Interface -->
             <div class="relative z-20 flex flex-col items-center text-center w-full max-w-7xl pt-32 pb-20" id="data-content">
                 
-                <div class="data-reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 shadow-[0_0_20px_rgba(59,130,246,0.1)] mb-8 opacity-0 backdrop-blur-md">
+                <div class="data-reveal data-parallax-text inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 shadow-[0_0_20px_rgba(59,130,246,0.1)] mb-8 opacity-0 backdrop-blur-md">
                     <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping absolute"></span>
                     <span class="w-1.5 h-1.5 rounded-full bg-blue-400 relative z-10"></span>
                     <span class="text-[10px] font-bold text-neutral-300 tracking-[0.15em] uppercase ml-1">Trusted Data Infrastructure</span>
                 </div>
 
-                <h2 class="data-reveal text-6xl md:text-[5rem] lg:text-[6.5rem] leading-[1.02] text-white font-bricolage font-light tracking-tight mb-8 drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] opacity-0">
+                <h2 class="data-reveal data-parallax-text text-6xl md:text-[5rem] lg:text-[6.5rem] leading-[1.02] text-white font-bricolage font-light tracking-tight mb-8 drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] opacity-0">
                     See Every Pattern.<br />
-                    Predict It <span class="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-500 to-brand-400">Before</span> It Happens.
+                    Predict It <span class="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-500 to-brand-400 animate-gradient">Before</span> It Happens.
                 </h2>
 
-                <p class="data-reveal text-lg md:text-xl text-neutral-400 font-sans leading-relaxed max-w-2xl mb-16 opacity-0 p-6 rounded-3xl bg-neutral-900/40 border border-white/5 shadow-2xl backdrop-blur-md mix-blend-screen">
+                <p class="data-reveal data-parallax-text text-lg md:text-xl text-neutral-400 font-sans leading-relaxed max-w-2xl mb-16 opacity-0 p-6 rounded-3xl bg-neutral-900/40 border border-white/5 shadow-2xl backdrop-blur-md mix-blend-screen">
                     Luminous is a real-time data engineering platform that monitors your entire infrastructure, processes pipelines autonomously, and derives intelligence in milliseconds — so your team can focus on modeling, not firefighting.
                 </p>
 
@@ -531,8 +642,11 @@
                 <div class="data-reveal opacity-0 w-full flex flex-col md:flex-row gap-4 h-[50vh] min-h-[350px] text-left">
                     
                     <!-- Card 1 -->
-                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-blue-500/10 hover:border-blue-500/50 flex flex-col justify-end bg-black/40 backdrop-blur-md">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202]/90 via-[#020202]/40 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-blue-500/10 hover:shadow-[inset_0_0_0_1px_rgba(59,130,246,0.5),0_0_30px_rgba(59,130,246,0.1)] flex flex-col justify-end bg-[#020202]/60 backdrop-blur-xl transition-all duration-500">
+                        <div class="absolute top-8 right-8 text-blue-500/30 group-hover:text-blue-400 transition-colors duration-500">
+                            <i data-lucide="database" class="w-8 h-8 group-hover:animate-pulse"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent z-0 opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="relative z-10 w-full">
                             <div class="text-[10px] uppercase tracking-widest text-blue-400 font-bold mb-3 border border-blue-500/20 bg-blue-500/10 px-2 py-1 inline-block rounded-md">Data Pipeline</div>
                             <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-blue-300 transition-colors">Project Delta</h3>
@@ -543,8 +657,11 @@
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-cyan-500/10 hover:border-cyan-400/50 flex flex-col justify-end bg-black/40 backdrop-blur-md">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202]/90 via-[#020202]/40 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-cyan-500/10 hover:shadow-[inset_0_0_0_1px_rgba(6,182,212,0.5),0_0_30px_rgba(6,182,212,0.1)] flex flex-col justify-end bg-[#020202]/60 backdrop-blur-xl transition-all duration-500">
+                        <div class="absolute top-8 right-8 text-cyan-500/30 group-hover:text-cyan-400 transition-colors duration-500">
+                            <i data-lucide="cpu" class="w-8 h-8 group-hover:animate-pulse"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent z-0 opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="relative z-10 w-full">
                             <div class="text-[10px] uppercase tracking-widest text-cyan-400 font-bold mb-3 border border-cyan-500/20 bg-cyan-500/10 px-2 py-1 inline-block rounded-md">Machine Learning</div>
                             <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-cyan-300 transition-colors">Project Epsilon</h3>
@@ -555,8 +672,11 @@
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-indigo-500/10 hover:border-indigo-500/50 flex flex-col justify-end bg-black/40 backdrop-blur-md">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202]/90 via-[#020202]/40 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-indigo-500/10 hover:shadow-[inset_0_0_0_1px_rgba(99,102,241,0.5),0_0_30px_rgba(99,102,241,0.1)] flex flex-col justify-end bg-[#020202]/60 backdrop-blur-xl transition-all duration-500">
+                        <div class="absolute top-8 right-8 text-indigo-500/30 group-hover:text-indigo-400 transition-colors duration-500">
+                            <i data-lucide="shield" class="w-8 h-8 group-hover:animate-pulse"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent z-0 opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="relative z-10 w-full">
                             <div class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold mb-3 border border-indigo-500/20 bg-indigo-500/10 px-2 py-1 inline-block rounded-md">Security</div>
                             <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-indigo-300 transition-colors">Project Sigma</h3>
@@ -574,48 +694,70 @@
         </section>
 
         <!-- 4) Footer CTA (Third Fold) -->
-        <section class="w-full min-h-screen flex flex-col items-center justify-center relative px-6 z-30 bg-[#030303] overflow-hidden rounded-t-[60px] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] border-t border-white/5">
+        <section id="cta-fold" class="w-full min-h-screen flex flex-col items-center justify-center relative px-6 z-30 bg-[#030303] overflow-hidden rounded-t-[60px] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] border-t border-brand-500/20">
             
-            <!-- Global Background Elements from Design System -->
-            <div class="absolute inset-0 bg-grid pointer-events-none"></div>
-            <div class="stars absolute inset-0 pointer-events-none"></div>
-            
-            <!-- Large Glowing Orbs -->
-            <div class="absolute top-0 left-1/4 w-[800px] h-[500px] bg-brand-900/15 blur-[120px] rounded-full mix-blend-screen pointer-events-none"></div>
-            <div class="absolute bottom-0 right-20 w-[600px] h-[600px] bg-orange-950/20 blur-[100px] rounded-full mix-blend-screen pointer-events-none"></div>
-            
-            <!-- Futuristic Vertical Beams -->
-            <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl pointer-events-none flex justify-evenly z-0">
-                <div class="w-px h-full bg-white/[0.02] relative overflow-hidden">
-                    <div class="beam-line" style="animation-duration: 4s; animation-delay: 0s;"></div>
-                </div>
-                <div class="w-px h-full bg-white/[0.02] relative overflow-hidden hidden md:block">
-                    <div class="beam-line" style="animation-duration: 5.5s; animation-delay: 1.2s; background: linear-gradient(to bottom, transparent, rgba(251, 191, 36, 0.5), transparent);"></div>
-                </div>
-                <div class="w-px h-full bg-white/[0.02] relative overflow-hidden">
-                    <div class="beam-line" style="animation-duration: 7s; animation-delay: 2.5s;"></div>
-                </div>
+            <!-- Grid Floor Perspective Background -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                <div class="grid-floor"></div>
+                <!-- Intense Horizon Glow -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[600px] bg-brand-500/10 blur-[150px] rounded-[100%]"></div>
             </div>
 
+            <!-- Ascending Sparks (CSS generated logic) -->
+            <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+                <div class="spark left-[20%]" style="animation-delay: 0s; animation-duration: 6s;"></div>
+                <div class="spark left-[40%]" style="animation-delay: 1.5s; animation-duration: 5s; transform: scale(0.6)"></div>
+                <div class="spark left-[60%]" style="animation-delay: 0.5s; animation-duration: 3.5s; transform: scale(1.2)"></div>
+                <div class="spark left-[80%]" style="animation-delay: 2s; animation-duration: 4.5s; transform: scale(0.8)"></div>
+                <div class="spark left-[30%]" style="animation-delay: 3s; animation-duration: 6s;"></div>
+                <div class="spark left-[70%]" style="animation-delay: 1.2s; animation-duration: 4.2s; transform: scale(0.5)"></div>
+            </div>
+            
             <!-- Content -->
-            <div class="gsap-reveal w-full max-w-2xl text-center glass-panel p-16 rounded-[40px] relative overflow-hidden z-20 shadow-2xl">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-[80px]"></div>
-                <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber-400/10 rounded-full blur-[80px]"></div>
+            <div class="relative w-full max-w-5xl text-center z-20 flex flex-col items-center gap-10">
                 
-                <h2 class="text-4xl md:text-6xl font-bricolage text-white font-light tracking-tight mb-8">Let's Build.</h2>
-                <button class="bg-white text-black px-10 py-5 rounded-full text-lg font-semibold shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.8)] transition-all hover:scale-105 inline-flex items-center gap-3">
-                    Start a Project <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
-                </button>
+                <!-- Brutalist Typography Stack -->
+                <div class="flex flex-col items-center uppercase font-bricolage tracking-tighter leading-[0.85] w-full">
+                    <h2 class="cta-reveal opacity-0 text-[18vw] md:text-[10rem] lg:text-[12rem] font-bold text-white drop-shadow-[0_0_50px_rgba(249,115,22,0.4)]">
+                        L E T ' S
+                    </h2>
+                    <h2 class="cta-reveal opacity-0 text-[18vw] md:text-[10rem] lg:text-[12rem] font-black italic text-stroke-brand mb-4 relative">
+                        BUILD.
+                        <!-- Small aesthetic badge anchored to BUILD -->
+                        <div class="absolute -right-12 -top-8 hidden md:flex items-center gap-1 text-[10px] tracking-widest text-brand-300 font-sans border border-brand-500/20 px-2 py-1 rounded-full bg-brand-500/10 backdrop-blur-md">
+                            <div class="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse"></div> READY
+                        </div>
+                    </h2>
+                </div>
+
+                <p class="cta-reveal opacity-0 text-xl md:text-2xl text-neutral-400 font-sans max-w-2xl font-light mb-8">
+                    Ready to tame complexity and deploy engineering excellence? Let's talk about your next big leap.
+                </p>
+
+                <div class="cta-reveal opacity-0">
+                    <!-- Premium Glowing Button -->
+                    <button class="btn-premium group flex items-center justify-center gap-3 rounded-full px-12 py-5 text-sm md:text-base font-bold text-white tracking-[0.2em] shadow-[0_0_50px_-10px_rgba(249,115,22,0.6)] transition-all hover:scale-110 focus:outline-none uppercase">
+                        <span class="relative z-10 group-hover:text-amber-300 transition-colors">Start a Project</span>
+                        <i data-lucide="zap" class="w-5 h-5 relative z-10 text-brand-500 group-hover:animate-pulse"></i>
+                    </button>
+                </div>
             </div>
 
             <!-- Optional Custom Footer Branding -->
-            <footer class="absolute bottom-0 w-full border-t border-white/10 py-8 z-20">
-                <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs text-neutral-500">
-                    <div class="flex items-center gap-2 mb-4 md:mb-0">
-                        <i data-lucide="asterisk" class="w-4 h-4 text-brand-500"></i>
-                        <span>Luminous. Engineering Excellence.</span>
+            <footer class="absolute bottom-0 w-full border-t border-white/5 bg-[#010101]/80 backdrop-blur-md py-8 z-30">
+                <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-brand-500 rounded-full animate-pulse shadow-[0_0_10px_#f97316]"></div>
+                        <span class="font-medium tracking-widest uppercase text-neutral-300">Luminous Engineering</span>
                     </div>
-                    <div class="font-mono bg-white/5 px-2 py-1 rounded">2026. All rights reserved.</div>
+                    
+                    <div class="flex gap-6 uppercase tracking-widest font-bold">
+                        <a href="#" class="hover:text-brand-400 transition-colors">Twitter</a>
+                        <a href="#" class="hover:text-brand-400 transition-colors">GitHub</a>
+                        <a href="#" class="hover:text-brand-400 transition-colors">LinkedIn</a>
+                    </div>
+                    
+                    <div class="font-mono bg-white/5 px-3 py-1.5 rounded-md border border-white/10 uppercase tracking-widest cursor-default">2026 / All systems nominal</div>
                 </div>
             </footer>
         </section>
@@ -825,6 +967,54 @@
                 { opacity: 0, y: 50, filter: "blur(10px)" },
                 { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2, stagger: 0.15, ease: "power3.out" },
                 "-=1.2" // Start during the sphere animation
+            );
+
+            // Added Parallax Polish for Fold 2
+            gsap.to(sphereBg, {
+                yPercent: 20, // Move sphere down slightly as you scroll down
+                ease: "none",
+                scrollTrigger: {
+                    trigger: dataFold,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            gsap.to('.data-parallax-text', {
+                yPercent: -15, // Move text up slightly faster than scroll
+                ease: "none",
+                scrollTrigger: {
+                    trigger: dataFold,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        }
+
+        // ----------------------------------------------------
+        // CTA Fold Animations (ScrollTrigger)
+        // ----------------------------------------------------
+        const ctaReveals = document.querySelectorAll('.cta-reveal');
+        const ctaFold = document.getElementById('cta-fold');
+        
+        if (ctaReveals.length > 0 && ctaFold) {
+            gsap.fromTo(ctaReveals,
+                { opacity: 0, y: 150, rotationX: -20, transformPerspective: 1000 },
+                {
+                    opacity: 1, 
+                    y: 0, 
+                    rotationX: 0,
+                    duration: 1.5, 
+                    stagger: 0.15, 
+                    ease: "back.out(1.2)",
+                    scrollTrigger: {
+                        trigger: ctaFold,
+                        start: "top 60%", 
+                        toggleActions: "play reverse play reverse"
+                    }
+                }
             );
         }
     </script>
