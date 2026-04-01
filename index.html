@@ -160,6 +160,65 @@
             max-height: 200px;
         }
 
+        /* 3D Wireframe Sphere Background */
+        .sphere-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 900px;
+            height: 900px;
+            perspective: 1200px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0; /* Handled by GSAP scroll trigger */
+        }
+
+        .sphere {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: rotateGlobe 45s linear infinite;
+        }
+
+        @keyframes rotateGlobe {
+            0% { transform: rotateX(-15deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(-15deg) rotateY(360deg) rotateZ(5deg); }
+        }
+
+        .sphere-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.15), inset 0 0 15px rgba(59, 130, 246, 0.15);
+            /* Soft mix blend for cool overlaps */
+            mix-blend-mode: screen;
+        }
+
+        /* Longitudes */
+        .ring-1 { transform: rotateY(0deg); }
+        .ring-2 { transform: rotateY(30deg); }
+        .ring-3 { transform: rotateY(60deg); }
+        .ring-4 { transform: rotateY(90deg); }
+        .ring-5 { transform: rotateY(120deg); }
+        .ring-6 { transform: rotateY(150deg); }
+
+        /* Latitudes */
+        .ring-7 { transform: rotateX(90deg) scale(0.98); border: 2px solid rgba(59,130,246,0.6); }
+        .ring-8 { transform: translateY(150px) rotateX(90deg) scale(0.92); }
+        .ring-9 { transform: translateY(-150px) rotateX(90deg) scale(0.92); }
+        .ring-10 { transform: translateY(280px) rotateX(90deg) scale(0.7); }
+        .ring-11 { transform: translateY(-280px) rotateX(90deg) scale(0.7); }
+        .ring-12 { transform: translateY(370px) rotateX(90deg) scale(0.35); }
+        .ring-13 { transform: translateY(-370px) rotateX(90deg) scale(0.35); }
+        .ring-14 { transform: translateY(420px) rotateX(90deg) scale(0.15); }
+        .ring-15 { transform: translateY(-420px) rotateX(90deg) scale(0.15); }
+
         /* Fancy 3D Button Utility */
         .btn-3d { transition: transform 0.1s; }
 
@@ -419,7 +478,102 @@
             </div>
         </section>
 
-        <!-- 3) Footer CTA (Second Fold) -->
+        <!-- 3) Data Engineering & Analytics (The New 2nd Fold) -->
+        <section id="data-fold" class="w-full min-h-screen relative flex flex-col items-center justify-center px-6 z-30 bg-[#0A0A0A] overflow-hidden border-t border-brand-500/10">
+            
+            <!-- Deep Space Background -->
+            <div class="absolute inset-0 bg-[#020202]"></div>
+            <div class="absolute inset-0 bg-grid pointer-events-none opacity-50"></div>
+            <div class="stars absolute inset-0 pointer-events-none opacity-60"></div>
+            
+            <!-- CSS 3D Sphere -->
+            <div class="sphere-container" id="sphere-bg">
+                <div class="sphere">
+                    <!-- Longitude/Meridians -->
+                    <div class="sphere-ring ring-1"></div>
+                    <div class="sphere-ring ring-2"></div>
+                    <div class="sphere-ring ring-3"></div>
+                    <div class="sphere-ring ring-4"></div>
+                    <div class="sphere-ring ring-5"></div>
+                    <div class="sphere-ring ring-6"></div>
+                    <!-- Latitude/Parallels -->
+                    <div class="sphere-ring ring-7"></div>
+                    <div class="sphere-ring ring-8"></div>
+                    <div class="sphere-ring ring-9"></div>
+                    <div class="sphere-ring ring-10"></div>
+                    <div class="sphere-ring ring-11"></div>
+                    <div class="sphere-ring ring-12"></div>
+                    <div class="sphere-ring ring-13"></div>
+                    <div class="sphere-ring ring-14"></div>
+                    <div class="sphere-ring ring-15"></div>
+                </div>
+            </div>
+
+            <!-- Overlaid Interface -->
+            <div class="relative z-20 flex flex-col items-center text-center w-full max-w-7xl pt-32 pb-20" id="data-content">
+                
+                <div class="data-reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 shadow-[0_0_20px_rgba(59,130,246,0.1)] mb-8 opacity-0 backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping absolute"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-400 relative z-10"></span>
+                    <span class="text-[10px] font-bold text-neutral-300 tracking-[0.15em] uppercase ml-1">Trusted Data Infrastructure</span>
+                </div>
+
+                <h2 class="data-reveal text-6xl md:text-[5rem] lg:text-[6.5rem] leading-[1.02] text-white font-bricolage font-light tracking-tight mb-8 drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] opacity-0">
+                    See Every Pattern.<br />
+                    Predict It <span class="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-500 to-brand-400">Before</span> It Happens.
+                </h2>
+
+                <p class="data-reveal text-lg md:text-xl text-neutral-400 font-sans leading-relaxed max-w-2xl mb-16 opacity-0 p-6 rounded-3xl bg-neutral-900/40 border border-white/5 shadow-2xl backdrop-blur-md mix-blend-screen">
+                    Luminous is a real-time data engineering platform that monitors your entire infrastructure, processes pipelines autonomously, and derives intelligence in milliseconds — so your team can focus on modeling, not firefighting.
+                </p>
+
+                <!-- Project Cards (Accordion) -->
+                <div class="data-reveal opacity-0 w-full flex flex-col md:flex-row gap-4 h-[50vh] min-h-[350px] text-left">
+                    
+                    <!-- Card 1 -->
+                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-blue-500/10 hover:border-blue-500/50 flex flex-col justify-end bg-black/40 backdrop-blur-md">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202]/90 via-[#020202]/40 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative z-10 w-full">
+                            <div class="text-[10px] uppercase tracking-widest text-blue-400 font-bold mb-3 border border-blue-500/20 bg-blue-500/10 px-2 py-1 inline-block rounded-md">Data Pipeline</div>
+                            <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-blue-300 transition-colors">Project Delta</h3>
+                            <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                                High-throughput real-time event streaming architecture capable of processing 50M+ events per minute with sub-second latency for fraud detection algorithms.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-cyan-500/10 hover:border-cyan-400/50 flex flex-col justify-end bg-black/40 backdrop-blur-md">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202]/90 via-[#020202]/40 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative z-10 w-full">
+                            <div class="text-[10px] uppercase tracking-widest text-cyan-400 font-bold mb-3 border border-cyan-500/20 bg-cyan-500/10 px-2 py-1 inline-block rounded-md">Machine Learning</div>
+                            <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-cyan-300 transition-colors">Project Epsilon</h3>
+                            <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                                Predictive maintenance models deployed on edge devices to forecast mechanical failures in industrial environments with 94% accuracy.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-indigo-500/10 hover:border-indigo-500/50 flex flex-col justify-end bg-black/40 backdrop-blur-md">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202]/90 via-[#020202]/40 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative z-10 w-full">
+                            <div class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold mb-3 border border-indigo-500/20 bg-indigo-500/10 px-2 py-1 inline-block rounded-md">Security</div>
+                            <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-indigo-300 transition-colors">Project Sigma</h3>
+                            <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                                Zero-trust data mesh implementation utilizing advanced cryptographic sharding to ensure compliance and data sovereignty across multi-cloud clusters.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- Soft bottom gradient to transition into Let's Build -->
+            <div class="absolute bottom-0 w-full h-40 bg-gradient-to-t from-[#030303] to-transparent pointer-events-none z-10"></div>
+        </section>
+
+        <!-- 4) Footer CTA (Third Fold) -->
         <section class="w-full min-h-screen flex flex-col items-center justify-center relative px-6 z-30 bg-[#030303] overflow-hidden rounded-t-[60px] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] border-t border-white/5">
             
             <!-- Global Background Elements from Design System -->
@@ -642,6 +796,37 @@
                 });
             }
         });
+
+        // ----------------------------------------------------
+        // Data Fold Animations (ScrollTrigger)
+        // ----------------------------------------------------
+        const dataFold = document.getElementById('data-fold');
+        const sphereBg = document.getElementById('sphere-bg');
+        const dataReveals = document.querySelectorAll('.data-reveal');
+
+        if (dataFold) {
+            let dataTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: dataFold,
+                    start: "top 70%", // Trigger when top of fold is 70% down viewport
+                    end: "bottom 30%",
+                    toggleActions: "play reverse play reverse", 
+                }
+            });
+
+            // Animate Sphere in
+            dataTl.fromTo(sphereBg, 
+                { opacity: 0, scale: 0.3, filter: "blur(40px)" },
+                { opacity: 1, scale: 1, filter: "blur(0px)", duration: 2, ease: "power3.out" }
+            );
+
+            // Stagger text and button
+            dataTl.fromTo(dataReveals,
+                { opacity: 0, y: 50, filter: "blur(10px)" },
+                { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2, stagger: 0.15, ease: "power3.out" },
+                "-=1.2" // Start during the sphere animation
+            );
+        }
     </script>
 </body>
 </html>
