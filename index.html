@@ -117,9 +117,59 @@
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
         .lenis.lenis-stopped { overflow: hidden; }
         .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* Custom Cursor */
+        * { cursor: none !important; }
+
+        .cursor-dot, .cursor-circle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0; /* Hidden initially until mouse moves */
+            will-change: transform;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #f97316;
+            box-shadow: 0 0 12px #f97316, 0 0 24px #f97316;
+            z-index: 10000;
+        }
+
+        .cursor-circle {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .cursor-circle-1 {
+            width: 32px;
+            height: 32px;
+            border-color: rgba(249, 115, 22, 0.4);
+        }
+
+        .cursor-circle-2 {
+            width: 56px;
+            height: 56px;
+        }
+
+        .cursor-circle-3 {
+            width: 80px;
+            height: 80px;
+            border-color: rgba(255, 255, 255, 0.05);
+            border-style: dashed;
+        }
     </style>
 </head>
 <body class="selection:bg-brand-500/30 font-sans relative">
+
+    <!-- Custom Cursor DOM -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle cursor-circle-1"></div>
+    <div class="cursor-circle cursor-circle-2"></div>
+    <div class="cursor-circle cursor-circle-3"></div>
 
     <!-- Apple Video Scroll Background Layer -->
     <div class="fixed inset-0 w-full h-full z-0 pointer-events-none bg-black">
@@ -424,6 +474,70 @@
                     ease: "power3.out"
                 }
             );
+        });
+
+        // ----------------------------------------------------
+        // Custom Cursor Logic with GSAP Multi-Track Interpolation
+        // ----------------------------------------------------
+        const dot = document.querySelector('.cursor-dot');
+        const c1 = document.querySelector('.cursor-circle-1');
+        const c2 = document.querySelector('.cursor-circle-2');
+        const c3 = document.querySelector('.cursor-circle-3');
+        const allCursors = [dot, c1, c2, c3];
+
+        // Center elements (xPercent/yPercent) so exact bounding boxes center on pointer
+        gsap.set(allCursors, { xPercent: -50, yPercent: -50 });
+
+        // High-performance GSAP quick setters
+        const xDot = gsap.quickTo(dot, "x", {duration: 0.05, ease: "power3"});
+        const yDot = gsap.quickTo(dot, "y", {duration: 0.05, ease: "power3"});
+
+        const xC1 = gsap.quickTo(c1, "x", {duration: 0.15, ease: "power3"});
+        const yC1 = gsap.quickTo(c1, "y", {duration: 0.15, ease: "power3"});
+
+        const xC2 = gsap.quickTo(c2, "x", {duration: 0.3, ease: "power3"});
+        const yC2 = gsap.quickTo(c2, "y", {duration: 0.3, ease: "power3"});
+
+        const xC3 = gsap.quickTo(c3, "x", {duration: 0.5, ease: "power3"});
+        const yC3 = gsap.quickTo(c3, "y", {duration: 0.5, ease: "power3"});
+
+        let mouseHasMoved = false;
+
+        window.addEventListener("mousemove", (e) => {
+            if (!mouseHasMoved) {
+                gsap.to(allCursors, {opacity: 1, duration: 0.5});
+                mouseHasMoved = true;
+            }
+            xDot(e.clientX);
+            yDot(e.clientY);
+            
+            xC1(e.clientX);
+            yC1(e.clientY);
+            
+            xC2(e.clientX);
+            yC2(e.clientY);
+            
+            xC3(e.clientX);
+            yC3(e.clientY);
+        });
+
+        // Add magnetic / hover state interactions
+        const interactives = document.querySelectorAll('a, button, [role="button"], .btn-3d, .electric-card');
+        interactives.forEach(el => {
+            if (el) {
+                el.addEventListener("mouseenter", () => {
+                    gsap.to(dot, {scale: 1.5, duration: 0.3});
+                    gsap.to(c1, {scale: 1.5, borderColor: "rgba(249,115,22,0.8)", backgroundColor: "rgba(249,115,22,0.1)", duration: 0.3});
+                    gsap.to(c2, {scale: 1.2, borderColor: "rgba(249,115,22,0.4)", duration: 0.3});
+                    gsap.to(c3, {scale: 0.8, opacity: 0, duration: 0.3});
+                });
+                el.addEventListener("mouseleave", () => {
+                    gsap.to(dot, {scale: 1, duration: 0.3});
+                    gsap.to(c1, {scale: 1, borderColor: "rgba(249,115,22,0.4)", backgroundColor: "transparent", duration: 0.3});
+                    gsap.to(c2, {scale: 1, borderColor: "rgba(255,255,255,0.15)", duration: 0.3});
+                    gsap.to(c3, {scale: 1, opacity: 1, duration: 0.3});
+                });
+            }
         });
     </script>
 </body>
