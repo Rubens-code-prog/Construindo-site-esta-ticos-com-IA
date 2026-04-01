@@ -108,6 +108,58 @@
         .delay-400 { animation-delay: 400ms; }
         .delay-500 { animation-delay: 500ms; }
 
+        /* Ambient Stars Background */
+        .stars {
+            background-image:
+                radial-gradient(1px 1px at 20px 30px, #ffffff, transparent),
+                radial-gradient(1.5px 1.5px at 80px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 150px 160px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 45px 230px, #ffffff, transparent),
+                radial-gradient(2px 2px at 190px 40px, rgba(249,115,22,0.8), transparent),
+                radial-gradient(1.5px 1.5px at 230px 180px, #ffffff, transparent);
+            background-size: 300px 300px;
+            opacity: 0.3;
+        }
+
+        /* Beam line animation for the futuristic framing */
+        @keyframes flowBeam {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        .beam-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 150px;
+            background: linear-gradient(to bottom, transparent, rgba(249, 115, 22, 0.8), transparent);
+            animation: flowBeam infinite linear;
+            z-index: 1;
+        }
+
+        /* Interactive Project Accordion Cards */
+        .project-card {
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            flex: 1; 
+            min-height: 400px;
+        }
+        .project-card:hover {
+            flex: 2.5; 
+        }
+        .project-card .desc {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s, max-height 0.4s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .project-card:hover .desc {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 200px;
+        }
+
         /* Fancy 3D Button Utility */
         .btn-3d { transition: transform 0.1s; }
 
@@ -316,43 +368,83 @@
             
         </section>
 
-        <!-- 2) Scroll Buffer Section -->
-        <section class="w-full h-[120vh] relative flex justify-center pt-40 px-6">
-            <div class="absolute top-10 flex flex-col items-center opacity-50">
-                <span class="text-[10px] text-white uppercase tracking-widest mb-2 font-medium">Scroll to explore</span>
-                <div class="w-px h-24 bg-gradient-to-b from-brand-500 to-transparent"></div>
+        <!-- 2) Investment Projects Section (End of 1st Fold) -->
+        <section class="w-full max-w-7xl px-6 relative z-20 mt-32 mb-40 h-[100vh] flex flex-col justify-center">
+            
+            <div class="mb-10 w-full flex align-center justify-between items-end gsap-reveal opacity-0">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-bricolage text-white font-light tracking-tight mb-2">Investment <span class="text-brand-500 italic">Portfolio</span></h2>
+                    <p class="text-neutral-400 text-sm max-w-lg">Strategic equity and foundational growth capital projects.</p>
+                </div>
             </div>
-
-            <!-- Reveal text panel -->
-            <div class="gsap-reveal w-full max-w-4xl glass-panel p-10 md:p-16 rounded-[40px] mt-20 shadow-2xl h-max opacity-0">
-                <h2 class="text-3xl md:text-5xl font-bricolage text-white font-light tracking-tight mb-6">Embracing the <span class="text-brand-500 italic">Chaos.</span></h2>
-                <p class="text-neutral-300 font-sans leading-relaxed text-lg max-w-2xl">
-                    Every great product starts in chaos. The engineering process is about taming complexity into a streamlined, high-speed experience. Watch the background video dynamically reflect this journey as you navigate.
-                </p>
+            
+            <div class="w-full flex flex-col md:flex-row gap-4 h-[60vh] min-h-[400px] gsap-reveal opacity-0">
                 
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-                        <i data-lucide="cpu" class="w-8 h-8 text-brand-400 mb-4"></i>
-                        <h4 class="text-white font-bricolage text-lg mb-2">Performance First</h4>
-                        <p class="text-xs text-neutral-400">Micro-optimized DOM elements for 60fps rendering.</p>
-                    </div>
-                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-                        <i data-lucide="zap" class="w-8 h-8 text-brand-400 mb-4"></i>
-                        <h4 class="text-white font-bricolage text-lg mb-2">High Voltage UI</h4>
-                        <p class="text-xs text-neutral-400">Deep color contrasts built entirely via native CSS paradigms.</p>
-                    </div>
-                    <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-                        <i data-lucide="layers" class="w-8 h-8 text-brand-400 mb-4"></i>
-                        <h4 class="text-white font-bricolage text-lg mb-2">Modularity</h4>
-                        <p class="text-xs text-neutral-400">Scalable components designed to evolve over time.</p>
+                <!-- Card 1 -->
+                <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-white/10 hover:border-brand-500/50 flex flex-col justify-end">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative z-10 w-full">
+                        <div class="text-[10px] uppercase tracking-widest text-brand-400 font-bold mb-3 border border-brand-500/20 bg-brand-500/10 px-2 py-1 inline-block rounded-md">Venture Capital</div>
+                        <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-brand-300 transition-colors">Project Alpha</h3>
+                        <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                            A high-leverage growth equity fund focused on scaling mature B2B SaaS platforms into enterprise market leaders through structured capital injections.
+                        </div>
                     </div>
                 </div>
+
+                <!-- Card 2 -->
+                <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-white/10 hover:border-amber-400/50 flex flex-col justify-end">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative z-10 w-full">
+                        <div class="text-[10px] uppercase tracking-widest text-amber-400 font-bold mb-3 border border-amber-500/20 bg-amber-500/10 px-2 py-1 inline-block rounded-md">Real Estate</div>
+                        <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-amber-300 transition-colors">Project Beta</h3>
+                        <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                            Premium commercial infrastructure and data center acquisition strategy, designed for long-term yields and asset appreciation in high-demand tech corridors.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-white/10 hover:border-brand-500/50 flex flex-col justify-end">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative z-10 w-full">
+                        <div class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold mb-3 border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 inline-block rounded-md">Growth Equity</div>
+                        <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-white transition-colors">Project Gamma</h3>
+                        <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                            Investing in next-generation supply chain technology, optimizing transit routing via AI methodologies and autonomous fleet integration.
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- 3) Footer CTA -->
-        <section class="w-full h-screen flex flex-col items-center justify-center relative px-6 z-20 pb-20">
-            <div class="gsap-reveal w-full max-w-2xl text-center glass-panel p-16 rounded-[40px] relative overflow-hidden opacity-0">
+        <!-- 3) Footer CTA (Second Fold) -->
+        <section class="w-full min-h-screen flex flex-col items-center justify-center relative px-6 z-30 bg-[#030303] overflow-hidden rounded-t-[60px] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] border-t border-white/5">
+            
+            <!-- Global Background Elements from Design System -->
+            <div class="absolute inset-0 bg-grid pointer-events-none"></div>
+            <div class="stars absolute inset-0 pointer-events-none"></div>
+            
+            <!-- Large Glowing Orbs -->
+            <div class="absolute top-0 left-1/4 w-[800px] h-[500px] bg-brand-900/15 blur-[120px] rounded-full mix-blend-screen pointer-events-none"></div>
+            <div class="absolute bottom-0 right-20 w-[600px] h-[600px] bg-orange-950/20 blur-[100px] rounded-full mix-blend-screen pointer-events-none"></div>
+            
+            <!-- Futuristic Vertical Beams -->
+            <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl pointer-events-none flex justify-evenly z-0">
+                <div class="w-px h-full bg-white/[0.02] relative overflow-hidden">
+                    <div class="beam-line" style="animation-duration: 4s; animation-delay: 0s;"></div>
+                </div>
+                <div class="w-px h-full bg-white/[0.02] relative overflow-hidden hidden md:block">
+                    <div class="beam-line" style="animation-duration: 5.5s; animation-delay: 1.2s; background: linear-gradient(to bottom, transparent, rgba(251, 191, 36, 0.5), transparent);"></div>
+                </div>
+                <div class="w-px h-full bg-white/[0.02] relative overflow-hidden">
+                    <div class="beam-line" style="animation-duration: 7s; animation-delay: 2.5s;"></div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="gsap-reveal w-full max-w-2xl text-center glass-panel p-16 rounded-[40px] relative overflow-hidden z-20 shadow-2xl">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-[80px]"></div>
                 <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber-400/10 rounded-full blur-[80px]"></div>
                 
@@ -361,6 +453,17 @@
                     Start a Project <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
                 </button>
             </div>
+
+            <!-- Optional Custom Footer Branding -->
+            <footer class="absolute bottom-0 w-full border-t border-white/10 py-8 z-20">
+                <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs text-neutral-500">
+                    <div class="flex items-center gap-2 mb-4 md:mb-0">
+                        <i data-lucide="asterisk" class="w-4 h-4 text-brand-500"></i>
+                        <span>Luminous. Engineering Excellence.</span>
+                    </div>
+                    <div class="font-mono bg-white/5 px-2 py-1 rounded">2026. All rights reserved.</div>
+                </div>
+            </footer>
         </section>
         
     </main>
