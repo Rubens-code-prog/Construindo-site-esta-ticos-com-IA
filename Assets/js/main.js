@@ -1,4 +1,4 @@
-﻿        lucide.createIcons();
+        lucide.createIcons();
 
         // Init Lenis Smooth Scroll
         const lenis = new Lenis({
@@ -32,44 +32,23 @@
             // Fade the video in beautifully once it's completely ready to avoid jarring pop-in
             video.style.opacity = "0.6";
 
-            let proxy = { percent: 0 };
-            
-            // --- Advanced Seek Queue for H.264 MP4 Performance ---
-            let targetTime = 0;
-            let isSeeking = false;
-
-            video.addEventListener('seeked', () => {
-                isSeeking = false;
-                // If scroll kept progressing while the browser decoded the last frame, fire the next frame update safely
-                if (Math.abs(video.currentTime - targetTime) > 0.04) {
-                    isSeeking = true;
-                    video.currentTime = targetTime;
-                }
-            });
-
-            // GSAP handles the progress smoothly
-            gsap.to(proxy, {
-                percent: 1,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: document.documentElement,
-                    start: "top top",
-                    endTrigger: "#investment-projects",
-                    end: "top 30%", // The video will reach 100% exactly when the investment section hits upper-viewport
-                    scrub: 1.5, // Increased smoothing specifically for H.264 browser decoding
-                },
-                onUpdate: () => {
-                    let duration = video.duration;
-                    if (duration > 0 && video.readyState >= 1) {
-                        targetTime = proxy.percent * duration;
-                        // Strict Queue: Only send a seek command if the browser decoder is genuinely ready
-                        if (!isSeeking) {
-                            isSeeking = true;
-                            video.currentTime = targetTime;
-                        }
+            // GSAP natively handles currentTime animation inside its requestAnimationFrame loop.
+            // This allows the browser to internally drop frames during high-speed scrubbing 
+            // instead of our manual "seeked" queue forcing sequential decoding (which causes severe lag).
+            gsap.fromTo(video, 
+                { currentTime: 0 },
+                {
+                    currentTime: video.duration || 1,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: document.documentElement,
+                        start: "top top",
+                        endTrigger: "#investment-projects",
+                        end: "top 30%", // The video will reach 100% exactly when the investment section hits upper-viewport
+                        scrub: 0.5, // Reduced scrub smoothing for better mobile responsiveness
                     }
                 }
-            });
+            );
         }
 
         // Ensure video is properly loaded before mounting to timeline
