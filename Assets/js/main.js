@@ -29,26 +29,50 @@
             if(scrubInitialized) return;
             scrubInitialized = true;
             
-            // Fade the video in beautifully once it's completely ready to avoid jarring pop-in
             video.style.opacity = "0.6";
 
-            // GSAP natively handles currentTime animation inside its requestAnimationFrame loop.
-            // This allows the browser to internally drop frames during high-speed scrubbing 
-            // instead of our manual "seeked" queue forcing sequential decoding (which causes severe lag).
-            gsap.fromTo(video, 
-                { currentTime: 0 },
-                {
-                    currentTime: video.duration || 1,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: document.documentElement,
-                        start: "top top",
-                        endTrigger: "#investment-projects",
-                        end: "top 30%", // The video will reach 100% exactly when the investment section hits upper-viewport
-                        scrub: 0.5, // Reduced scrub smoothing for better mobile responsiveness
+            let targetTime = 0;
+            
+            // GSAP handles calculating the target progress smoothly
+            ScrollTrigger.create({
+                trigger: document.documentElement,
+                start: "top top",
+                endTrigger: "#investment-projects",
+                end: "top 30%",
+                scrub: 0.8, // Smooth catch-up delay
+                onUpdate: (self) => {
+                    if (video.duration > 0) {
+                        targetTime = self.progress * video.duration;
                     }
                 }
-            );
+            });
+
+            // Decoupled Video Update Loop
+            let lastUpdate = 0;
+            
+            function renderVideo(time) {
+                if (video.readyState >= 1 && video.duration > 0) {
+                    const now = performance.now();
+                    // Throttle DOM currentTime assignments to ~30 frames per second.
+                    // Doing this at 60fps or using direct GSAP tweening freezes the thread
+                    // on mobile devices because H.264 decoders queue too many seek requests.
+                    if (now - lastUpdate > 33.3) {
+                        let diff = Math.abs(video.currentTime - targetTime);
+                        if (diff > 0.02) {
+                            if (video.fastSeek) {
+                                video.fastSeek(targetTime);
+                            } else {
+                                video.currentTime = targetTime;
+                            }
+                            lastUpdate = now;
+                        }
+                    }
+                }
+                requestAnimationFrame(renderVideo);
+            }
+            
+            // Start the decoupled loop
+            requestAnimationFrame(renderVideo);
         }
 
         // Ensure video is properly loaded before mounting to timeline
