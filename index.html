@@ -694,7 +694,7 @@
         </section>
 
         <!-- 4) Footer CTA (Third Fold) -->
-        <section id="cta-fold" class="w-full min-h-screen flex flex-col items-center justify-center relative px-6 z-30 bg-[#030303] overflow-hidden rounded-t-[60px] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] border-t border-brand-500/20">
+        <section id="cta-fold" class="w-full min-h-screen flex flex-col items-center justify-between relative z-30 bg-[#030303] overflow-hidden rounded-t-[60px] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] border-t border-brand-500/20 pt-20">
             
             <!-- Grid Floor Perspective Background -->
             <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -717,34 +717,35 @@
             <div class="relative w-full max-w-5xl text-center z-20 flex flex-col items-center gap-10">
                 
                 <!-- Brutalist Typography Stack -->
-                <div class="flex flex-col items-center uppercase font-bricolage tracking-tighter leading-[0.85] w-full">
-                    <h2 class="cta-reveal opacity-0 text-[18vw] md:text-[10rem] lg:text-[12rem] font-bold text-white drop-shadow-[0_0_50px_rgba(249,115,22,0.4)]">
+                <div class="flex flex-col items-center uppercase font-bricolage tracking-tighter leading-[0.85] w-full mb-6">
+                    <h2 class="cta-reveal opacity-0 text-[14vw] md:text-[7rem] lg:text-[9rem] font-bold text-white drop-shadow-[0_0_50px_rgba(249,115,22,0.4)]">
                         L E T ' S
                     </h2>
-                    <h2 class="cta-reveal opacity-0 text-[18vw] md:text-[10rem] lg:text-[12rem] font-black italic text-stroke-brand mb-4 relative">
+                    <h2 class="cta-reveal opacity-0 text-[14vw] md:text-[7rem] lg:text-[9rem] font-black italic text-stroke-brand relative">
                         BUILD.
                         <!-- Small aesthetic badge anchored to BUILD -->
-                        <div class="absolute -right-12 -top-8 hidden md:flex items-center gap-1 text-[10px] tracking-widest text-brand-300 font-sans border border-brand-500/20 px-2 py-1 rounded-full bg-brand-500/10 backdrop-blur-md">
+                        <div class="absolute -right-6 -top-6 md:-right-10 md:-top-4 hidden md:flex items-center gap-1 text-[8px] md:text-[10px] tracking-widest text-brand-300 font-sans border border-brand-500/20 px-2 py-1 rounded-full bg-brand-500/10 backdrop-blur-md">
                             <div class="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse"></div> READY
                         </div>
                     </h2>
                 </div>
 
-                <p class="cta-reveal opacity-0 text-xl md:text-2xl text-neutral-400 font-sans max-w-2xl font-light mb-8">
+                <p class="cta-reveal opacity-0 text-lg md:text-xl text-neutral-400 font-sans max-w-xl font-light mb-8">
                     Ready to tame complexity and deploy engineering excellence? Let's talk about your next big leap.
                 </p>
 
-                <div class="cta-reveal opacity-0">
-                    <!-- Premium Glowing Button -->
-                    <button class="btn-premium group flex items-center justify-center gap-3 rounded-full px-12 py-5 text-sm md:text-base font-bold text-white tracking-[0.2em] shadow-[0_0_50px_-10px_rgba(249,115,22,0.6)] transition-all hover:scale-110 focus:outline-none uppercase">
-                        <span class="relative z-10 group-hover:text-amber-300 transition-colors">Start a Project</span>
-                        <i data-lucide="zap" class="w-5 h-5 relative z-10 text-brand-500 group-hover:animate-pulse"></i>
+                <div class="z-50 relative pb-10">
+                    <!-- Highly Visible Main CTA Button -->
+                    <button class="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-brand-600 to-amber-500 px-10 py-4 md:px-14 md:py-5 text-sm md:text-lg font-bold text-black tracking-[0.1em] shadow-[0_0_60px_-10px_rgba(249,115,22,1)] transition-all hover:scale-105 hover:shadow-[0_0_80px_0px_rgba(249,115,22,1)] focus:outline-none uppercase border border-white/20">
+                        <span class="relative z-10 group-hover:text-black transition-colors delay-75">Start a Project</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 relative z-10 text-black group-hover:translate-x-2 transition-transform"></i>
+                        <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 rounded-full transition-opacity"></div>
                     </button>
                 </div>
             </div>
 
             <!-- Optional Custom Footer Branding -->
-            <footer class="absolute bottom-0 w-full border-t border-white/5 bg-[#010101]/80 backdrop-blur-md py-8 z-30">
+            <footer class="w-full mt-auto border-t border-white/5 bg-[#010101]/80 backdrop-blur-md py-8 z-30">
                 <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
                     <div class="flex items-center gap-2">
                         <div class="w-2 h-2 bg-brand-500 rounded-full animate-pulse shadow-[0_0_10px_#f97316]"></div>
