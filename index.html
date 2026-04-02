@@ -349,45 +349,49 @@
             </div>
             
             <!-- CSS 3D Sphere -->
-            <div class="sphere-container" id="sphere-bg">
-                <div class="sphere">
-                    <!-- Longitude/Meridians -->
-                    <div class="sphere-ring ring-1"></div>
-                    <div class="sphere-ring ring-2"></div>
-                    <div class="sphere-ring ring-3"></div>
-                    <div class="sphere-ring ring-4"></div>
-                    <div class="sphere-ring ring-5"></div>
-                    <div class="sphere-ring ring-6"></div>
-                    <!-- Latitude/Parallels -->
-                    <div class="sphere-ring ring-7"></div>
-                    <div class="sphere-ring ring-8"></div>
-                    <div class="sphere-ring ring-9"></div>
-                    <div class="sphere-ring ring-10"></div>
-                    <div class="sphere-ring ring-11"></div>
-                    <div class="sphere-ring ring-12"></div>
-                    <div class="sphere-ring ring-13"></div>
-                    <div class="sphere-ring ring-14"></div>
-                    <div class="sphere-ring ring-15"></div>
+            <div id="sphere-wrapper" class="absolute inset-0 z-0 pointer-events-none">
+                <div class="sphere-container" id="sphere-bg">
+                    <div class="sphere">
+                        <!-- Longitude/Meridians -->
+                        <div class="sphere-ring ring-1"></div>
+                        <div class="sphere-ring ring-2"></div>
+                        <div class="sphere-ring ring-3"></div>
+                        <div class="sphere-ring ring-4"></div>
+                        <div class="sphere-ring ring-5"></div>
+                        <div class="sphere-ring ring-6"></div>
+                        <!-- Latitude/Parallels -->
+                        <div class="sphere-ring ring-7"></div>
+                        <div class="sphere-ring ring-8"></div>
+                        <div class="sphere-ring ring-9"></div>
+                        <div class="sphere-ring ring-10"></div>
+                        <div class="sphere-ring ring-11"></div>
+                        <div class="sphere-ring ring-12"></div>
+                        <div class="sphere-ring ring-13"></div>
+                        <div class="sphere-ring ring-14"></div>
+                        <div class="sphere-ring ring-15"></div>
+                    </div>
                 </div>
             </div>
 
             <!-- Overlaid Interface -->
             <div class="relative z-20 flex flex-col items-center text-center w-full max-w-7xl pt-32 pb-20" id="data-content">
                 
-                <div class="data-reveal data-parallax-text inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 shadow-[0_0_20px_rgba(59,130,246,0.1)] mb-8 opacity-0 backdrop-blur-md">
-                    <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping absolute"></span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-blue-400 relative z-10"></span>
-                    <span class="text-[10px] font-bold text-neutral-300 tracking-[0.15em] uppercase ml-1">Trusted Data Infrastructure</span>
+                <div class="data-parallax-container flex flex-col items-center w-full">
+                    <div class="data-reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 shadow-[0_0_20px_rgba(59,130,246,0.1)] mb-8 opacity-0 backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping absolute"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 relative z-10"></span>
+                        <span class="text-[10px] font-bold text-neutral-300 tracking-[0.15em] uppercase ml-1">Trusted Data Infrastructure</span>
+                    </div>
+
+                    <h2 class="data-reveal text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.02] text-white font-bricolage font-light tracking-tight mb-8 drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] opacity-0">
+                        See Every Pattern.<br />
+                        Predict It <span class="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-500 to-brand-400 animate-gradient">Before</span> It Happens.
+                    </h2>
+
+                    <p class="data-reveal text-lg md:text-xl text-neutral-400 font-sans leading-relaxed max-w-2xl mb-16 opacity-0 p-6 rounded-3xl bg-neutral-900/40 border border-white/5 shadow-2xl backdrop-blur-md">
+                        Luminous is a real-time data engineering platform that monitors your entire infrastructure, processes pipelines autonomously, and derives intelligence in milliseconds — so your team can focus on modeling, not firefighting.
+                    </p>
                 </div>
-
-                <h2 class="data-reveal data-parallax-text text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.02] text-white font-bricolage font-light tracking-tight mb-8 drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] opacity-0">
-                    See Every Pattern.<br />
-                    Predict It <span class="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-500 to-brand-400 animate-gradient">Before</span> It Happens.
-                </h2>
-
-                <p class="data-reveal data-parallax-text text-lg md:text-xl text-neutral-400 font-sans leading-relaxed max-w-2xl mb-16 opacity-0 p-6 rounded-3xl bg-neutral-900/40 border border-white/5 shadow-2xl backdrop-blur-md">
-                    Luminous is a real-time data engineering platform that monitors your entire infrastructure, processes pipelines autonomously, and derives intelligence in milliseconds — so your team can focus on modeling, not firefighting.
-                </p>
 
                 <!-- Project Cards (Accordion) -->
                 <div class="data-reveal opacity-0 w-full flex flex-col md:flex-row gap-6 md:gap-4 lg:h-[50vh] h-auto min-h-[350px] text-left">

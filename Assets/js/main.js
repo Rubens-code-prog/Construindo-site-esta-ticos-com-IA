@@ -31,39 +31,33 @@
             
             video.style.opacity = "0.6";
 
-            let targetTime = 0;
+            let proxy = { time: 0 };
             
             // GSAP handles calculating the target progress smoothly
-            ScrollTrigger.create({
-                trigger: document.documentElement,
-                start: "top top",
-                endTrigger: "#investment-projects",
-                end: "top 30%",
-                scrub: 0.8, // Smooth catch-up delay
-                onUpdate: (self) => {
-                    if (video.duration > 0) {
-                        targetTime = self.progress * video.duration;
-                    }
+            gsap.to(proxy, {
+                time: () => video.duration || 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: document.documentElement,
+                    start: "top top",
+                    endTrigger: "#investment-projects",
+                    end: "top 30%",
+                    scrub: 0.5,
                 }
             });
 
             // Decoupled Video Update Loop
             let lastUpdate = 0;
-            
-            function renderVideo(time) {
+            function renderVideo() {
                 if (video.readyState >= 1 && video.duration > 0) {
                     const now = performance.now();
-                    // Throttle DOM currentTime assignments to ~30 frames per second.
-                    // Doing this at 60fps or using direct GSAP tweening freezes the thread
-                    // on mobile devices because H.264 decoders queue too many seek requests.
-                    if (now - lastUpdate > 33.3) {
-                        let diff = Math.abs(video.currentTime - targetTime);
-                        if (diff > 0.02) {
-                            if (video.fastSeek) {
-                                video.fastSeek(targetTime);
-                            } else {
-                                video.currentTime = targetTime;
-                            }
+                    // CRITICAL: Throttle DOM currentTime assignments to ~25 FPS (40ms).
+                    // Without this throttle, the browser's video decoder queue fills up,
+                    // blocking frame paints until scrolling completely stops!
+                    if (now - lastUpdate > 40) {
+                        let diff = Math.abs(video.currentTime - proxy.time);
+                        if (diff > 0.01) {
+                            video.currentTime = proxy.time;
                             lastUpdate = now;
                         }
                     }
@@ -214,7 +208,7 @@
             );
 
             // Added Parallax Polish for Fold 2
-            gsap.to(sphereBg, {
+            gsap.to('#sphere-wrapper', {
                 yPercent: 20, // Move sphere down slightly as you scroll down
                 ease: "none",
                 scrollTrigger: {
@@ -225,7 +219,7 @@
                 }
             });
 
-            gsap.to('.data-parallax-text', {
+            gsap.to('.data-parallax-container', {
                 yPercent: -15, // Move text up slightly faster than scroll
                 ease: "none",
                 scrollTrigger: {
