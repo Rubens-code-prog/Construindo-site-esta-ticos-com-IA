@@ -1,15 +1,18 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="antialiased">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Luminous | Portfolio</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -46,7 +49,7 @@
     <!-- GSAP & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
+
     <!-- Lenis Smooth Scroll -->
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
@@ -58,8 +61,9 @@
     <!-- Custom CSS Base from Design System -->
     <link rel="stylesheet" href="./Assets/css/globals.css">
 </head>
+
 <body class="selection:bg-brand-500/30 font-sans relative">
-    
+
     <!-- Cinematic Film Grain Overlay -->
     <div class="noise-bg"></div>
 
@@ -73,62 +77,123 @@
     <div class="fixed inset-0 w-full h-full z-0 pointer-events-none bg-[#030303] overflow-hidden">
         <style>
             .orbital-core-container {
-                position: absolute; top: 50%; left: 50%;
-                width: 100vw; height: 100vh;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100vw;
+                height: 100vh;
                 transform: translate(-50%, -50%);
-                perspective: 1200px; transform-style: preserve-3d; overflow: visible;
+                perspective: 1200px;
+                transform-style: preserve-3d;
+                overflow: visible;
             }
 
             .volumetric-orb {
-                position: absolute; top: 50%; left: 50%;
-                border-radius: 50%; transform: translate(-50%, -50%);
-                filter: blur(120px); mix-blend-mode: screen;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                filter: blur(120px);
+                mix-blend-mode: screen;
                 animation: pulsePlasma 8s infinite alternate ease-in-out;
             }
+
             .orb-amber {
-                width: 800px; height: 800px; margin-left: -20vw;
+                width: 800px;
+                height: 800px;
+                margin-left: -20vw;
                 background: radial-gradient(circle, rgba(249, 115, 22, 0.40) 0%, transparent 65%);
             }
+
             .orb-cyan {
-                width: 900px; height: 900px; margin-left: 20vw; animation-delay: -4s;
+                width: 900px;
+                height: 900px;
+                margin-left: 20vw;
+                animation-delay: -4s;
                 background: radial-gradient(circle, rgba(59, 130, 246, 0.30) 0%, transparent 65%);
             }
 
             @keyframes pulsePlasma {
-                0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
-                100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+                0% {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 0.7;
+                }
+
+                100% {
+                    transform: translate(-50%, -50%) scale(1.2);
+                    opacity: 1;
+                }
             }
 
             .orbital-ring {
-                position: absolute; top: 50%; left: 50%;
-                border-radius: 50%; transform-style: preserve-3d;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                border-radius: 50%;
+                transform-style: preserve-3d;
             }
 
             /* MEGA THICK & BRIGHT RINGS */
             .ring-layer-1 {
-                width: 1400px; height: 1400px; margin-top: -700px; margin-left: -700px;
+                width: 1400px;
+                height: 1400px;
+                margin-top: -700px;
+                margin-left: -700px;
                 border: 15px solid rgba(249, 115, 22, 0.8);
                 box-shadow: 0 0 100px rgba(249, 115, 22, 0.9), inset 0 0 100px rgba(249, 115, 22, 0.9);
                 animation: spinOrbital 18s linear infinite;
             }
 
             .ring-layer-2 {
-                width: 1100px; height: 1100px; margin-top: -550px; margin-left: -550px;
+                width: 1100px;
+                height: 1100px;
+                margin-top: -550px;
+                margin-left: -550px;
                 border: 8px dashed rgba(251, 191, 36, 0.9);
                 box-shadow: 0 0 60px rgba(251, 191, 36, 0.7);
                 animation: spinOrbitalReverse 12s linear infinite;
             }
 
             .ring-layer-3 {
-                width: 1800px; height: 1800px; margin-top: -900px; margin-left: -900px;
+                width: 1800px;
+                height: 1800px;
+                margin-top: -900px;
+                margin-left: -900px;
                 border: 12px solid rgba(59, 130, 246, 0.6);
                 box-shadow: 0 0 120px rgba(59, 130, 246, 0.7);
                 animation: spinOrbitalTilt 24s linear infinite;
             }
 
-            @keyframes spinOrbital { 0% { transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg); } 100% { transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg); } }
-            @keyframes spinOrbitalReverse { 0% { transform: rotateX(75deg) rotateY(-10deg) rotateZ(360deg); } 100% { transform: rotateX(75deg) rotateY(-10deg) rotateZ(0deg); } }
-            @keyframes spinOrbitalTilt { 0% { transform: rotateX(50deg) rotateY(-20deg) rotateZ(0deg); } 100% { transform: rotateX(50deg) rotateY(-20deg) rotateZ(360deg); } }
+            @keyframes spinOrbital {
+                0% {
+                    transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg);
+                }
+
+                100% {
+                    transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg);
+                }
+            }
+
+            @keyframes spinOrbitalReverse {
+                0% {
+                    transform: rotateX(75deg) rotateY(-10deg) rotateZ(360deg);
+                }
+
+                100% {
+                    transform: rotateX(75deg) rotateY(-10deg) rotateZ(0deg);
+                }
+            }
+
+            @keyframes spinOrbitalTilt {
+                0% {
+                    transform: rotateX(50deg) rotateY(-20deg) rotateZ(0deg);
+                }
+
+                100% {
+                    transform: rotateX(50deg) rotateY(-20deg) rotateZ(360deg);
+                }
+            }
         </style>
 
         <div class="absolute inset-0 bg-grid opacity-30"></div>
@@ -146,21 +211,24 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-3rem)] max-w-5xl rounded-full glass-panel flex items-center justify-between px-6 py-3 animate-entry shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+    <nav
+        class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-3rem)] max-w-5xl rounded-full glass-panel flex items-center justify-between px-6 py-3 animate-entry shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
         <div class="flex items-center gap-2">
             <div class="relative flex items-center justify-center w-8 h-8">
                 <i data-lucide="asterisk" class="text-white w-8 h-8 absolute rotate-45"></i>
                 <i data-lucide="asterisk" class="text-brand-500 w-8 h-8 absolute scale-125 opacity-50 blur-[2px]"></i>
             </div>
-            <span class="text-xl font-bold font-bricolage text-white tracking-tight ml-2">Luminous<span class="text-brand-500">.</span></span>
+            <span class="text-xl font-bold font-bricolage text-white tracking-tight ml-2">Rubens<span
+                    class="text-brand-500"> Gabriel</span></span>
         </div>
         <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
-            <a href="#" class="hover:text-white transition-colors">Works</a>
-            <a href="#" class="hover:text-white transition-colors">Manifesto</a>
-            <a href="#" class="hover:text-white transition-colors">Process</a>
+            <a href="#" class="hover:text-white transition-colors">Projetos</a>
+            <a href="#" class="hover:text-white transition-colors">Sobre</a>
+            <a href="#" class="hover:text-white transition-colors">Currículo</a>
         </div>
         <div>
-            <a href="#" class="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all">
+            <a href="#"
+                class="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all">
                 Hire Me
             </a>
         </div>
@@ -168,40 +236,49 @@
 
     <!-- Main Scrolling Area (Long height to allow video scrubbing) -->
     <main class="relative z-10 w-full flex flex-col items-center">
-        
+
         <!-- 1) Hero Section (vh-screen) -->
-        <section id="hero-section" class="w-full min-h-screen pb-24 lg:pb-0 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center px-6 lg:gap-16 relative">
-            
+        <section id="hero-section"
+            class="w-full min-h-screen pb-24 lg:pb-0 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center px-6 lg:gap-16 relative">
+
             <!-- Left Side / Typography -->
             <div class="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-20 pt-20">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs font-medium text-brand-400 mb-8 animate-entry delay-100">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs font-medium text-brand-400 mb-8 animate-entry delay-100">
                     <i data-lucide="zap" class="w-3.5 h-3.5"></i>
-                    Creative Engineer
+                    Data Analyst
                 </div>
 
-                <h1 class="text-4xl md:text-6xl lg:text-[5.5rem] leading-[1.05] text-white font-bricolage font-light tracking-tight mb-6 animate-entry delay-200 drop-shadow-lg">
-                    Digital <br/> <span class="italic font-medium text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-200 to-brand-500">Perfection.</span><br />
-                    At scale.
+                <h1
+                    class="text-4xl md:text-6xl lg:text-[5.5rem] leading-[1.05] text-white font-bricolage font-light tracking-tight mb-6 animate-entry delay-200 drop-shadow-lg">
+                    Um profissional <br /> <span
+                        class="italic font-medium text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-200 to-brand-500">orientado
+                        por dados</span><br />
                 </h1>
 
                 <!-- Glass Text Background for better contrast over video -->
-                <p class="text-lg md:text-xl text-neutral-300 max-w-xl mb-12 font-sans animate-entry delay-300 glass-panel px-6 py-4 rounded-2xl">
-                    Crafting ultra-high standard interfaces, bridging abstract concepts into robust front-end architectures with meticulous precision.
+                <p
+                    class="text-lg md:text-xl text-neutral-300 max-w-xl mb-12 font-sans animate-entry delay-300 glass-panel px-6 py-4 rounded-2xl">
+                    Sonho em construir o futuro do investimento passivo através da análise quantitativa. Tenho
+                    capacidade de transformar terabytes de dados de mercado em estratégias sólidas de ETFs, eliminando
+                    conflitos de interesse com o rigor do código Python e SQL.
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-5 animate-entry delay-400">
                     <!-- Primary Glow Button -->
-                    <button class="btn-3d group flex items-center justify-center gap-3 rounded-full bg-gradient-to-t from-brand-600 via-brand-500 to-amber-500 px-8 py-4 text-base font-semibold text-white shadow-[0_0_40px_-5px_rgba(249,115,22,0.6)] ring-1 ring-inset ring-white/30 transition-shadow duration-300"
-                            onmousemove="const rect = this.getBoundingClientRect(); const x = event.clientX - rect.left; const y = event.clientY - rect.top; const centerX = rect.width / 2; const centerY = rect.height / 2; const rotateX = ((y - centerY) / centerY) * -15; const rotateY = ((x - centerX) / centerX) * 15; this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`; "
-                            onmouseout="this.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`; this.style.boxShadow = '0 0 40px -5px rgba(249,115,22,0.6)'; "
-                            onmouseover="this.style.boxShadow = '0 0 60px 0px rgba(249,115,22,0.8), inset 0 2px 8px rgba(255, 255, 255, 0.5)'; ">
+                    <button
+                        class="btn-3d group flex items-center justify-center gap-3 rounded-full bg-gradient-to-t from-brand-600 via-brand-500 to-amber-500 px-8 py-4 text-base font-semibold text-white shadow-[0_0_40px_-5px_rgba(249,115,22,0.6)] ring-1 ring-inset ring-white/30 transition-shadow duration-300"
+                        onmousemove="const rect = this.getBoundingClientRect(); const x = event.clientX - rect.left; const y = event.clientY - rect.top; const centerX = rect.width / 2; const centerY = rect.height / 2; const rotateX = ((y - centerY) / centerY) * -15; const rotateY = ((x - centerX) / centerX) * 15; this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`; "
+                        onmouseout="this.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`; this.style.boxShadow = '0 0 40px -5px rgba(249,115,22,0.6)'; "
+                        onmouseover="this.style.boxShadow = '0 0 60px 0px rgba(249,115,22,0.8), inset 0 2px 8px rgba(255, 255, 255, 0.5)'; ">
                         <i data-lucide="layers" class="w-5 h-5 drop-shadow-md"></i>
-                        <span>View Portfolio</span>
+                        <span>Ver Portfolio</span>
                     </button>
-                    
+
                     <!-- Outline Button -->
-                    <button class="px-8 py-4 rounded-full border border-white/20 hover:border-white/50 bg-white/5 backdrop-blur-xl text-white font-medium transition-all group flex items-center justify-center gap-2 shadow-lg">
-                        GitHub Profile
+                    <button
+                        class="px-8 py-4 rounded-full border border-white/20 hover:border-white/50 bg-white/5 backdrop-blur-xl text-white font-medium transition-all group flex items-center justify-center gap-2 shadow-lg">
+                        Perfil GitHub
                         <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                     </button>
                 </div>
@@ -209,95 +286,116 @@
 
             <!-- Right Side / Electric Card Demo -->
             <div class="lg:w-1/2 mt-16 lg:mt-0 flex justify-center z-20 animate-entry delay-500 w-full max-w-md pt-20">
-                <div class="w-full relative bg-neutral-900/80 rounded-[32px] p-[2px] electric-card overflow-hidden backdrop-blur-2xl group cursor-pointer hover:-translate-y-2 transition-transform duration-500 shadow-2xl">
+                <div
+                    class="w-full relative bg-neutral-900/80 rounded-[32px] p-[2px] electric-card overflow-hidden backdrop-blur-2xl group cursor-pointer hover:-translate-y-2 transition-transform duration-500 shadow-2xl">
                     <!-- Border Gradient -->
-                    <div class="absolute inset-0 bg-gradient-to-b from-amber-300 via-brand-500 to-transparent opacity-70 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
-                    
-                    <div class="relative z-10 bg-[#0A0A0A]/90 rounded-[30px] h-full p-8 flex flex-col items-start overflow-hidden w-full">
-                        <div class="absolute top-0 right-[-50px] w-64 h-64 bg-gradient-to-b from-brand-600/30 to-transparent rounded-full filter blur-[50px] mix-blend-screen pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-amber-300 via-brand-500 to-transparent opacity-70 group-hover:opacity-100 transition-opacity duration-500 z-0">
+                    </div>
 
-                        <div class="flex justify-between w-full items-center mb-6 relative">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-neutral-300 border border-white/10 px-3 py-1.5 rounded bg-white/5 flex items-center gap-2 shadow-inner">
+                    <div
+                        class="relative z-10 bg-[#0A0A0A]/95 rounded-[30px] h-full p-8 flex flex-col items-center overflow-hidden w-full">
+
+                        <!-- Core background aura to pop the avatar out -->
+                        <div
+                            class="absolute top-0 right-[-50px] w-64 h-64 bg-gradient-to-b from-brand-600/30 to-transparent rounded-full filter blur-[50px] mix-blend-screen pointer-events-none group-hover:scale-110 transition-transform duration-700">
+                        </div>
+
+                        <!-- Header: Availability Status -->
+                        <div class="flex justify-between w-full items-center mb-10 relative">
+                            <span
+                                class="text-[10px] uppercase font-bold tracking-widest text-neutral-300 border border-white/10 px-3 py-1.5 rounded bg-white/5 flex items-center gap-2 shadow-inner">
                                 <span class="relative flex h-2 w-2">
-                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                                 </span>
-                                System Live
+                                Disponível
                             </span>
-                            <div class="flex gap-1">
-                                <span class="w-2 h-2 rounded-full bg-white/20"></span>
-                                <span class="w-2 h-2 rounded-full bg-white/20"></span>
+                            <div class="flex gap-1 opacity-50">
+                                <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
                             </div>
                         </div>
 
-                        <h3 class="text-2xl font-bricolage text-white font-medium mb-2 tracking-tight">Performance Matrix</h3>
-                        <p class="text-xs text-neutral-400 leading-relaxed mb-8">Real-time telemetry and project execution tracking.</p>
-
-                        <div class="w-full mb-8">
-                            <div class="flex items-end gap-3 mb-2">
-                                <span class="text-5xl text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-amber-300 font-bricolage font-light tracking-tight">
-                                    99.9%
-                                </span>
-                                <span class="text-xs text-emerald-400 flex items-center bg-emerald-400/10 border border-emerald-400/20 px-2 py-1 rounded-md mb-2 font-medium">
-                                    <i data-lucide="trending-up" class="w-3 h-3 mr-1"></i> Efficiency
-                                </span>
+                        <!-- Profile Avatar Container -->
+                        <div class="relative w-36 h-36 mb-6 group-hover:scale-105 transition-transform duration-500">
+                            <!-- Outer glow ring -->
+                            <div
+                                class="absolute inset-0 rounded-full border border-brand-500/50 bg-brand-500/10 blur-[15px] scale-110">
                             </div>
-                            
-                            <!-- Animated SVG Sparkline -->
-                            <div class="w-full h-16 relative mt-4 border-b border-white/10">
-                                <svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 300 60">
-                                    <defs>
-                                        <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="0%" stop-color="#f97316" stop-opacity="0.4" />
-                                            <stop offset="100%" stop-color="#f97316" stop-opacity="0" />
-                                        </linearGradient>
-                                    </defs>
-                                    <path d="M0 60 C 40 40, 60 55, 100 25 C 140 -5, 170 30, 200 15 C 240 0, 260 20, 300 5 V 60 H 0 Z" fill="url(#lineGrad)" />
-                                    <!-- Stroke line -->
-                                    <path d="M0 60 C 40 40, 60 55, 100 25 C 140 -5, 170 30, 200 15 C 240 0, 260 20, 300 5" fill="none" stroke="#f97316" stroke-width="3" stroke-linecap="round" class="drop-shadow-[0_0_5px_rgba(249,115,22,0.8)]" />
-                                    <!-- Pulsing circle marker -->
-                                    <circle cx="300" cy="5" r="4" fill="#fff" stroke="#f97316" stroke-width="2" class="animate-pulse shadow-[0_0_10px_#f97316]" />
-                                </svg>
-                            </div>
+                            <!-- Image itself -->
+                            <img src="./Assets/media/profile.jpg" alt="Rubens Profile"
+                                class="relative w-full h-full object-cover rounded-full border-[3px] border-brand-500 shadow-[0_0_30px_rgba(249,115,22,0.4)]">
                         </div>
 
-                        <div class="flex gap-4 w-full justify-between items-center text-xs mt-auto">
-                            <div class="flex flex-col gap-1">
-                                <span class="text-neutral-500 font-medium">Lines of Code</span>
-                                <span class="text-white font-bricolage text-lg">140k+</span>
+                        <!-- Name and Core Title -->
+                        <h3 class="text-3xl font-bricolage text-white font-medium mb-1 tracking-tight text-center">
+                            Rubens Gabriel
+                        </h3>
+                        <p class="text-brand-400 text-sm font-medium mb-8 uppercase tracking-widest text-center">
+                            Data Analyst
+                        </p>
+
+                        <!-- Summarized details fields (with icons) -->
+                        <div class="w-full space-y-4 text-sm mt-4 relative z-20">
+                            <!-- Field 1 -->
+                            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                                <span class="text-neutral-500 font-sans flex items-center gap-2">
+                                    <i data-lucide="map-pin" class="w-4 h-4"></i> Localização
+                                </span>
+                                <span class="text-white font-medium">[Natal/RN]</span>
                             </div>
-                            <div class="flex flex-col gap-1 text-right">
-                                <span class="text-neutral-500 font-medium">Delivered</span>
-                                <span class="text-white font-bricolage text-lg">42</span>
+                            <!-- Field 2 -->
+                            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                                <span class="text-neutral-500 font-sans flex items-center gap-2">
+                                    <i data-lucide="code" class="w-4 h-4"></i> Especialidades
+                                </span>
+                                <span class="text-white font-medium">Python/SQL/Power BI</span>
+                            </div>
+                            <!-- Field 3 -->
+                            <div class="flex justify-between items-center pb-2">
+                                <span class="text-neutral-500 font-sans flex items-center gap-2">
+                                    <i data-lucide="briefcase" class="w-4 h-4"></i> Experiência
+                                </span>
+                                <span class="text-white font-medium">2+ Anos</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </section>
 
         <!-- 1.5) Core Capabilities Section (Scroll Track for Video) -->
-        <section id="core-capabilities" class="w-full max-w-7xl mx-auto min-h-[150vh] px-6 py-32 flex flex-col justify-center items-center relative z-20">
-            
+        <section id="core-capabilities"
+            class="w-full max-w-7xl mx-auto min-h-[150vh] px-6 py-32 flex flex-col justify-center items-center relative z-20">
+
             <div class="text-center mb-32 gsap-reveal w-full">
-                <span class="inline-block py-1 px-3 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold tracking-widest text-neutral-400 uppercase mb-4">Core Principles</span>
-                <h2 class="text-4xl md:text-6xl font-bricolage font-light text-white tracking-tight">Engineering <span class="text-brand-500 italic">Precision</span></h2>
+                <span
+                    class="inline-block py-1 px-3 rounded-md bg-white/5 border border-white/10 text-[10px] font-bold tracking-widest text-neutral-400 uppercase mb-4">Skills</span>
+                <h2 class="text-4xl md:text-6xl font-bricolage font-light text-white tracking-tight">Principais <span
+                        class="text-brand-500 italic">Habilidades</span></h2>
             </div>
-            
+
             <div class="flex flex-col w-full max-w-4xl gap-24 relative">
                 <!-- Vertical connecting line -->
-                <div class="absolute left-[24px] md:left-1/2 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent md:-translate-x-1/2"></div>
-                
+                <div
+                    class="absolute left-[24px] md:left-1/2 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent md:-translate-x-1/2">
+                </div>
+
                 <!-- Competency 1 -->
                 <div class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 w-full gsap-reveal">
                     <div class="md:w-1/2 flex justify-start md:justify-end order-2 md:order-1 pl-16 md:pl-0 w-full">
                         <div class="text-left md:text-right">
-                            <h3 class="text-3xl text-white font-bricolage mb-3">System Architecture</h3>
-                            <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">Designing robust, scalable infrastructures. Transforming complex business logic into maintainable, elegant codebases that withstand massive performance demands.</p>
+                            <h3 class="text-3xl text-white font-bricolage mb-3">Análise quantitativa</h3>
+                            <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">Desenvolvimento de modelos
+                                estatísticos e matemáticos para validação de estratégias de investimento baseadas em
+                                evidências.</p>
                         </div>
                     </div>
-                    <div class="relative flex items-center justify-center w-12 h-12 rounded-full bg-brand-500/10 border border-brand-500/30 z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(249,115,22,0.2)]">
+                    <div
+                        class="relative flex items-center justify-center w-12 h-12 rounded-full bg-brand-500/10 border border-brand-500/30 z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(249,115,22,0.2)]">
                         <i data-lucide="cpu" class="w-5 h-5 text-brand-400"></i>
                     </div>
                     <div class="md:w-1/2 order-3 hidden md:block"></div>
@@ -306,13 +404,15 @@
                 <!-- Competency 2 -->
                 <div class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 w-full gsap-reveal">
                     <div class="md:w-1/2 order-3 md:order-1 hidden md:block"></div>
-                    <div class="relative flex items-center justify-center w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/30 z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+                    <div
+                        class="relative flex items-center justify-center w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/30 z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
                         <i data-lucide="layers" class="w-5 h-5 text-cyan-400"></i>
                     </div>
                     <div class="md:w-1/2 flex justify-start md:justify-start order-2 md:order-3 pl-16 md:pl-0 w-full">
                         <div class="text-left">
-                            <h3 class="text-3xl text-white font-bricolage mb-3">Immersive Interfaces</h3>
-                            <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">Crafting hyper-fluid WebGL and CSS-driven experiences. Pushing the boundaries of browser rendering to deliver cinematic visual storytelling.</p>
+                            <h3 class="text-3xl text-white font-bricolage mb-3">Simulação de estratégias</h3>
+                            <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">Simulação rigorosa de ativos
+                                históricos para otimização de alocação e mensuração de performance de longo prazo.</p>
                         </div>
                     </div>
                 </div>
@@ -321,11 +421,14 @@
                 <div class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 w-full gsap-reveal">
                     <div class="md:w-1/2 flex justify-start md:justify-end order-2 md:order-1 pl-16 md:pl-0 w-full">
                         <div class="text-left md:text-right">
-                            <h3 class="text-3xl text-white font-bricolage mb-3">Data Visualization</h3>
-                            <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">Distilling massive data sets into intuitive, interactive dashboards. Turning raw information noise into crystal-clear actionable insights.</p>
+                            <h3 class="text-3xl text-white font-bricolage mb-3">Estruturação de dados</h3>
+                            <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">Arquitetura de pipelines de
+                                dados financeiros, garantindo integridade e eficiência na extração de insights de
+                                mercado.</p>
                         </div>
                     </div>
-                    <div class="relative flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+                    <div
+                        class="relative flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 z-10 shrink-0 order-1 md:order-2 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
                         <i data-lucide="bar-chart-2" class="w-5 h-5 text-emerald-400"></i>
                     </div>
                     <div class="md:w-1/2 order-3 hidden md:block"></div>
@@ -334,49 +437,78 @@
         </section>
 
         <!-- 2) Investment Projects Section (End of 1st Fold) -->
-        <section id="investment-projects" class="w-full max-w-7xl px-6 relative z-20 mt-32 mb-40 min-h-[100vh] h-auto flex flex-col justify-center py-20 lg:py-0">
-            
+        <section id="investment-projects"
+            class="w-full max-w-7xl px-6 relative z-20 mt-32 mb-40 min-h-[100vh] h-auto flex flex-col justify-center py-20 lg:py-0">
+
             <div class="mb-10 w-full flex align-center justify-between items-end gsap-reveal opacity-0">
                 <div>
-                    <h2 class="text-3xl md:text-5xl font-bricolage text-white font-light tracking-tight mb-2">Investment <span class="text-brand-500 italic">Portfolio</span></h2>
-                    <p class="text-neutral-400 text-sm max-w-lg">Strategic equity and foundational growth capital projects.</p>
+                    <h2 class="text-3xl md:text-5xl font-bricolage text-white font-light tracking-tight mb-2">Principais
+                        <span class="text-brand-500 italic">Projetos</span>
+                    </h2>
+                    <p class="text-neutral-400 text-sm max-w-lg">Projetos aos quais me dediquei no âmbito do mercado
+                        financeiro</p>
                 </div>
             </div>
-            
-            <div class="w-full flex flex-col md:flex-row gap-6 md:gap-4 lg:h-[60vh] h-auto min-h-[400px] gsap-reveal opacity-0">
-                
+
+            <div
+                class="w-full flex flex-col md:flex-row gap-6 md:gap-4 lg:h-[60vh] h-auto min-h-[400px] gsap-reveal opacity-0">
+
                 <!-- Card 1 -->
-                <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-white/10 hover:border-brand-500/50 flex flex-col justify-end">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div
+                    class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-white/10 hover:border-brand-500/50 flex flex-col justify-end">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
                     <div class="relative z-10 w-full">
-                        <div class="text-[10px] uppercase tracking-widest text-brand-400 font-bold mb-3 border border-brand-500/20 bg-brand-500/10 px-2 py-1 inline-block rounded-md">Venture Capital</div>
-                        <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-brand-300 transition-colors">Project Alpha</h3>
-                        <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
-                            A high-leverage growth equity fund focused on scaling mature B2B SaaS platforms into enterprise market leaders through structured capital injections.
+                        <div
+                            class="text-[10px] uppercase tracking-widest text-brand-400 font-bold mb-3 border border-brand-500/20 bg-brand-500/10 px-2 py-1 inline-block rounded-md">
+                            Em breve</div>
+                        <h3
+                            class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-brand-300 transition-colors">
+                            Em breve</h3>
+                        <div
+                            class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                            Em breve
                         </div>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-white/10 hover:border-amber-400/50 flex flex-col justify-end">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div
+                    class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-white/10 hover:border-amber-400/50 flex flex-col justify-end">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
                     <div class="relative z-10 w-full">
-                        <div class="text-[10px] uppercase tracking-widest text-amber-400 font-bold mb-3 border border-amber-500/20 bg-amber-500/10 px-2 py-1 inline-block rounded-md">Real Estate</div>
-                        <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-amber-300 transition-colors">Project Beta</h3>
-                        <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
-                            Premium commercial infrastructure and data center acquisition strategy, designed for long-term yields and asset appreciation in high-demand tech corridors.
+                        <div
+                            class="text-[10px] uppercase tracking-widest text-amber-400 font-bold mb-3 border border-amber-500/20 bg-amber-500/10 px-2 py-1 inline-block rounded-md">
+                            Em breve</div>
+                        <h3
+                            class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-amber-300 transition-colors">
+                            Em breve</h3>
+                        <div
+                            class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                            Em breve
                         </div>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-white/10 hover:border-brand-500/50 flex flex-col justify-end">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div
+                    class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-white/10 hover:border-brand-500/50 flex flex-col justify-end">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/90 via-[#0A0A0A]/20 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
                     <div class="relative z-10 w-full">
-                        <div class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold mb-3 border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 inline-block rounded-md">Growth Equity</div>
-                        <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-white transition-colors">Project Gamma</h3>
-                        <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
-                            Investing in next-generation supply chain technology, optimizing transit routing via AI methodologies and autonomous fleet integration.
+                        <div
+                            class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold mb-3 border border-emerald-500/20 bg-emerald-500/10 px-2 py-1 inline-block rounded-md">
+                            Em breve</div>
+                        <h3
+                            class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-white transition-colors">
+                            Em breve</h3>
+                        <div
+                            class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                            Em breve
                         </div>
                     </div>
                 </div>
@@ -386,31 +518,43 @@
 
         <!-- 3) Data Engineering & Analytics (The New 2nd Fold) -->
         <!-- Razor Edge Separator (Cyan) -->
-        <div class="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/80 to-transparent z-50 relative shadow-[0_0_30px_rgba(6,182,212,0.8)]"></div>
-        <section id="data-fold" class="w-full min-h-screen relative flex flex-col items-center justify-center px-6 z-30 bg-[#0A0A0A] overflow-hidden">
-            
+        <div
+            class="w-full h-px bg-gradient-to-r from-transparent via-cyan-500/80 to-transparent z-50 relative shadow-[0_0_30px_rgba(6,182,212,0.8)]">
+        </div>
+        <section id="data-fold"
+            class="w-full min-h-screen relative flex flex-col items-center justify-center px-6 z-30 bg-[#0A0A0A] overflow-hidden">
+
             <!-- Deep Space Background -->
             <div class="absolute inset-0 bg-[#020202]"></div>
             <div class="absolute inset-0 bg-grid pointer-events-none opacity-50"></div>
             <div class="stars absolute inset-0 pointer-events-none opacity-60"></div>
 
             <!-- Premium: Floating Ambient Orbs -->
-            <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-blue-900/15 blur-[150px] rounded-full pointer-events-none animate-float-slow" id="orb-1"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-900/10 blur-[120px] rounded-full pointer-events-none animate-float-fast" id="orb-2"></div>
+            <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-blue-900/15 blur-[150px] rounded-full pointer-events-none animate-float-slow"
+                id="orb-1"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-900/10 blur-[120px] rounded-full pointer-events-none animate-float-fast"
+                id="orb-2"></div>
 
             <!-- Premium: Data Streams (Scanner Beams) -->
-            <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl pointer-events-none flex justify-evenly z-0 opacity-40">
+            <div
+                class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl pointer-events-none flex justify-evenly z-0 opacity-40">
                 <div class="w-px h-full bg-blue-500/[0.02] relative overflow-hidden hidden md:block">
-                    <div class="beam-line" style="animation-duration: 3s; animation-delay: 0s; background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.8), transparent);"></div>
+                    <div class="beam-line"
+                        style="animation-duration: 3s; animation-delay: 0s; background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.8), transparent);">
+                    </div>
                 </div>
                 <div class="w-px h-full bg-cyan-500/[0.02] relative overflow-hidden">
-                    <div class="beam-line" style="animation-duration: 5s; animation-delay: 1.5s; background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.5), transparent);"></div>
+                    <div class="beam-line"
+                        style="animation-duration: 5s; animation-delay: 1.5s; background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.5), transparent);">
+                    </div>
                 </div>
                 <div class="w-px h-full bg-blue-500/[0.02] relative overflow-hidden hidden lg:block">
-                    <div class="beam-line" style="animation-duration: 4s; animation-delay: 3s; background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.6), transparent);"></div>
+                    <div class="beam-line"
+                        style="animation-duration: 4s; animation-delay: 3s; background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.6), transparent);">
+                    </div>
                 </div>
             </div>
-            
+
             <!-- CSS 3D Sphere -->
             <div id="sphere-wrapper" class="absolute inset-0 z-0 pointer-events-none">
                 <div class="sphere-container" id="sphere-bg">
@@ -437,157 +581,219 @@
             </div>
 
             <!-- Overlaid Interface -->
-            <div class="relative z-20 flex flex-col items-center text-center w-full max-w-7xl pt-32 pb-20" id="data-content">
-                
+            <div class="relative z-20 flex flex-col items-center text-center w-full max-w-7xl pt-32 pb-20"
+                id="data-content">
+
                 <div class="data-parallax-container flex flex-col items-center w-full">
-                    <div class="data-reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 shadow-[0_0_20px_rgba(59,130,246,0.1)] mb-8 opacity-0 backdrop-blur-md">
+                    <div
+                        class="data-reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 shadow-[0_0_20px_rgba(59,130,246,0.1)] mb-8 opacity-0 backdrop-blur-md">
                         <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping absolute"></span>
                         <span class="w-1.5 h-1.5 rounded-full bg-blue-400 relative z-10"></span>
-                        <span class="text-[10px] font-bold text-neutral-300 tracking-[0.15em] uppercase ml-1">Trusted Data Infrastructure</span>
+                        <span class="text-[10px] font-bold text-neutral-300 tracking-[0.15em] uppercase ml-1">Data
+                            Skills</span>
                     </div>
 
-                    <h2 class="data-reveal text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.02] text-white font-bricolage font-light tracking-tight mb-8 drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] opacity-0">
-                        See Every Pattern.<br />
-                        Predict It <span class="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-500 to-brand-400 animate-gradient">Before</span> It Happens.
+                    <h2
+                        class="data-reveal text-5xl md:text-[5rem] lg:text-[6.5rem] leading-[1.02] text-white font-bricolage font-light tracking-tight mb-8 drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] opacity-0">
+                        Da teoria dos dados<br />
+                        Para <span
+                            class="font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-500 to-brand-400 animate-gradient">Soluções</span>
+                        Construídas
                     </h2>
 
-                    <p class="data-reveal text-lg md:text-xl text-neutral-400 font-sans leading-relaxed max-w-2xl mb-16 opacity-0 p-6 rounded-3xl bg-neutral-900/40 border border-white/5 shadow-2xl backdrop-blur-md">
-                        Luminous is a real-time data engineering platform that monitors your entire infrastructure, processes pipelines autonomously, and derives intelligence in milliseconds — so your team can focus on modeling, not firefighting.
+                    <p
+                        class="data-reveal text-lg md:text-xl text-neutral-400 font-sans leading-relaxed max-w-2xl mb-16 opacity-0 p-6 rounded-3xl bg-neutral-900/40 border border-white/5 shadow-2xl backdrop-blur-md">
+                        Acredito que a intuição falha onde o dado prospera. Como Data Analyst, minha missão é converter
+                        processos complexos em fluxos automatizados, garantindo que cada decisão estratégica seja
+                        sustentada por evidências sólidas. Utilizo SQL e Python para construir a infraestrutura
+                        necessária para que qualquer processo seja analisado com a precisão de um algoritmo, eliminando
+                        ruídos e maximizando a eficiência.
                     </p>
                 </div>
 
                 <!-- Project Cards (Accordion) -->
-                <div class="data-reveal opacity-0 w-full flex flex-col md:flex-row gap-6 md:gap-4 lg:h-[50vh] h-auto min-h-[350px] text-left">
-                    
+                <div
+                    class="data-reveal opacity-0 w-full flex flex-col md:flex-row gap-6 md:gap-4 lg:h-[50vh] h-auto min-h-[350px] text-left">
+
                     <!-- Card 1 -->
-                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-blue-500/10 hover:shadow-[inset_0_0_0_1px_rgba(59,130,246,0.5),0_0_30px_rgba(59,130,246,0.1)] flex flex-col justify-end bg-[#020202]/60 backdrop-blur-xl transition-all duration-500">
-                        <div class="absolute top-8 right-8 text-blue-500/30 group-hover:text-blue-400 transition-colors duration-500">
+                    <div
+                        class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-blue-500/10 hover:shadow-[inset_0_0_0_1px_rgba(59,130,246,0.5),0_0_30px_rgba(59,130,246,0.1)] flex flex-col justify-end bg-[#020202]/60 backdrop-blur-xl transition-all duration-500">
+                        <div
+                            class="absolute top-8 right-8 text-blue-500/30 group-hover:text-blue-400 transition-colors duration-500">
                             <i data-lucide="database" class="w-8 h-8 group-hover:animate-pulse"></i>
                         </div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent z-0 opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent z-0 opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
                         <div class="relative z-10 w-full">
-                            <div class="text-[10px] uppercase tracking-widest text-blue-400 font-bold mb-3 border border-blue-500/20 bg-blue-500/10 px-2 py-1 inline-block rounded-md">Data Pipeline</div>
-                            <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-blue-300 transition-colors">Project Delta</h3>
-                            <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
-                                High-throughput real-time event streaming architecture capable of processing 50M+ events per minute with sub-second latency for fraud detection algorithms.
+                            <div
+                                class="text-[10px] uppercase tracking-widest text-blue-400 font-bold mb-3 border border-blue-500/20 bg-blue-500/10 px-2 py-1 inline-block rounded-md">
+                                Em breve</div>
+                            <h3
+                                class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-blue-300 transition-colors">
+                                Em breve</h3>
+                            <div
+                                class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                                Em breve
                             </div>
                         </div>
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-cyan-500/10 hover:shadow-[inset_0_0_0_1px_rgba(6,182,212,0.5),0_0_30px_rgba(6,182,212,0.1)] flex flex-col justify-end bg-[#020202]/60 backdrop-blur-xl transition-all duration-500">
-                        <div class="absolute top-8 right-8 text-cyan-500/30 group-hover:text-cyan-400 transition-colors duration-500">
+                    <div
+                        class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-cyan-500/10 hover:shadow-[inset_0_0_0_1px_rgba(6,182,212,0.5),0_0_30px_rgba(6,182,212,0.1)] flex flex-col justify-end bg-[#020202]/60 backdrop-blur-xl transition-all duration-500">
+                        <div
+                            class="absolute top-8 right-8 text-cyan-500/30 group-hover:text-cyan-400 transition-colors duration-500">
                             <i data-lucide="cpu" class="w-8 h-8 group-hover:animate-pulse"></i>
                         </div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent z-0 opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent z-0 opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
                         <div class="relative z-10 w-full">
-                            <div class="text-[10px] uppercase tracking-widest text-cyan-400 font-bold mb-3 border border-cyan-500/20 bg-cyan-500/10 px-2 py-1 inline-block rounded-md">Machine Learning</div>
-                            <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-cyan-300 transition-colors">Project Epsilon</h3>
-                            <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
-                                Predictive maintenance models deployed on edge devices to forecast mechanical failures in industrial environments with 94% accuracy.
+                            <div
+                                class="text-[10px] uppercase tracking-widest text-cyan-400 font-bold mb-3 border border-cyan-500/20 bg-cyan-500/10 px-2 py-1 inline-block rounded-md">
+                                Em breve</div>
+                            <h3
+                                class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-cyan-300 transition-colors">
+                                Em breve</h3>
+                            <div
+                                class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                                Em breve
                             </div>
                         </div>
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-indigo-500/10 hover:shadow-[inset_0_0_0_1px_rgba(99,102,241,0.5),0_0_30px_rgba(99,102,241,0.1)] flex flex-col justify-end bg-[#020202]/60 backdrop-blur-xl transition-all duration-500">
-                        <div class="absolute top-8 right-8 text-indigo-500/30 group-hover:text-indigo-400 transition-colors duration-500">
+                    <div
+                        class="project-card glass-panel rounded-3xl p-8 relative overflow-hidden group cursor-pointer border border-indigo-500/10 hover:shadow-[inset_0_0_0_1px_rgba(99,102,241,0.5),0_0_30px_rgba(99,102,241,0.1)] flex flex-col justify-end bg-[#020202]/60 backdrop-blur-xl transition-all duration-500">
+                        <div
+                            class="absolute top-8 right-8 text-indigo-500/30 group-hover:text-indigo-400 transition-colors duration-500">
                             <i data-lucide="shield" class="w-8 h-8 group-hover:animate-pulse"></i>
                         </div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent z-0 opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/60 to-transparent z-0 opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
                         <div class="relative z-10 w-full">
-                            <div class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold mb-3 border border-indigo-500/20 bg-indigo-500/10 px-2 py-1 inline-block rounded-md">Security</div>
-                            <h3 class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-indigo-300 transition-colors">Project Sigma</h3>
-                            <div class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
-                                Zero-trust data mesh implementation utilizing advanced cryptographic sharding to ensure compliance and data sovereignty across multi-cloud clusters.
+                            <div
+                                class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold mb-3 border border-indigo-500/20 bg-indigo-500/10 px-2 py-1 inline-block rounded-md">
+                                Em breve</div>
+                            <h3
+                                class="font-bricolage text-2xl md:text-4xl text-white whitespace-nowrap overflow-hidden text-ellipsis mb-2 drop-shadow-lg group-hover:text-indigo-300 transition-colors">
+                                Em breve</h3>
+                            <div
+                                class="desc w-full text-neutral-300 text-sm leading-relaxed mt-4 border-t border-white/10 pt-4">
+                                Em breve
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-            
+
             <!-- Soft bottom gradient to transition into Let's Build -->
-            <div class="absolute bottom-0 w-full h-40 bg-gradient-to-t from-[#030303] to-transparent pointer-events-none z-10"></div>
+            <div
+                class="absolute bottom-0 w-full h-40 bg-gradient-to-t from-[#030303] to-transparent pointer-events-none z-10">
+            </div>
         </section>
 
         <!-- 4) Footer CTA (Third Fold) -->
         <!-- Razor Edge Separator (Amber) -->
-        <div class="w-full h-px bg-gradient-to-r from-transparent via-brand-500 to-transparent z-50 relative shadow-[0_0_30px_rgba(249,115,22,1)]"></div>
-        <section id="cta-fold" class="w-full min-h-screen flex flex-col items-center justify-between relative z-30 bg-[#030303] overflow-hidden rounded-t-[60px] shadow-[0_-20px_60px_rgba(249,115,22,0.15)] pt-20">
-            
+        <div
+            class="w-full h-px bg-gradient-to-r from-transparent via-brand-500 to-transparent z-50 relative shadow-[0_0_30px_rgba(249,115,22,1)]">
+        </div>
+        <section id="cta-fold"
+            class="w-full min-h-screen flex flex-col items-center justify-between relative z-30 bg-[#030303] overflow-hidden rounded-t-[60px] shadow-[0_-20px_60px_rgba(249,115,22,0.15)] pt-20">
+
             <!-- Grid Floor Perspective Background -->
             <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
                 <div class="grid-floor"></div>
                 <!-- Intense Horizon Glow -->
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[600px] bg-brand-500/10 blur-[150px] rounded-[100%]"></div>
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[600px] bg-brand-500/10 blur-[150px] rounded-[100%]">
+                </div>
             </div>
 
             <!-- Ascending Sparks (CSS generated logic) -->
             <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
                 <div class="spark left-[20%]" style="animation-delay: 0s; animation-duration: 6s;"></div>
-                <div class="spark left-[40%]" style="animation-delay: 1.5s; animation-duration: 5s; transform: scale(0.6)"></div>
-                <div class="spark left-[60%]" style="animation-delay: 0.5s; animation-duration: 3.5s; transform: scale(1.2)"></div>
-                <div class="spark left-[80%]" style="animation-delay: 2s; animation-duration: 4.5s; transform: scale(0.8)"></div>
+                <div class="spark left-[40%]"
+                    style="animation-delay: 1.5s; animation-duration: 5s; transform: scale(0.6)"></div>
+                <div class="spark left-[60%]"
+                    style="animation-delay: 0.5s; animation-duration: 3.5s; transform: scale(1.2)"></div>
+                <div class="spark left-[80%]"
+                    style="animation-delay: 2s; animation-duration: 4.5s; transform: scale(0.8)"></div>
                 <div class="spark left-[30%]" style="animation-delay: 3s; animation-duration: 6s;"></div>
-                <div class="spark left-[70%]" style="animation-delay: 1.2s; animation-duration: 4.2s; transform: scale(0.5)"></div>
+                <div class="spark left-[70%]"
+                    style="animation-delay: 1.2s; animation-duration: 4.2s; transform: scale(0.5)"></div>
             </div>
-            
+
             <!-- Content -->
             <div class="relative w-full max-w-5xl text-center z-20 flex flex-col items-center gap-10">
-                
+
                 <!-- Brutalist Typography Stack -->
-                <div class="flex flex-col items-center uppercase font-bricolage tracking-tighter leading-[0.85] w-full mb-6">
-                    <h2 class="cta-reveal opacity-0 text-[14vw] md:text-[7rem] lg:text-[9rem] font-bold text-white drop-shadow-[0_0_50px_rgba(249,115,22,0.4)]">
-                        L E T ' S
+                <div
+                    class="flex flex-col items-center uppercase font-bricolage tracking-tighter leading-[0.85] w-full mb-6">
+                    <h2
+                        class="cta-reveal opacity-0 text-[14vw] md:text-[7rem] lg:text-[9rem] font-bold text-white drop-shadow-[0_0_50px_rgba(249,115,22,0.4)]">
+                        VAMOS
                     </h2>
-                    <h2 class="cta-reveal opacity-0 text-[14vw] md:text-[7rem] lg:text-[9rem] font-black italic text-stroke-brand relative">
-                        BUILD.
+                    <h2
+                        class="cta-reveal opacity-0 text-[14vw] md:text-[7rem] lg:text-[9rem] font-black italic text-stroke-brand relative">
+                        CONSTRUIR.
                         <!-- Small aesthetic badge anchored to BUILD -->
-                        <div class="absolute -right-6 -top-6 md:-right-10 md:-top-4 hidden md:flex items-center gap-1 text-[8px] md:text-[10px] tracking-widest text-brand-300 font-sans border border-brand-500/20 px-2 py-1 rounded-full bg-brand-500/10 backdrop-blur-md">
+                        <div
+                            class="absolute -right-6 -top-6 md:-right-10 md:-top-4 hidden md:flex items-center gap-1 text-[8px] md:text-[10px] tracking-widest text-brand-300 font-sans border border-brand-500/20 px-2 py-1 rounded-full bg-brand-500/10 backdrop-blur-md">
                             <div class="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse"></div> READY
                         </div>
                     </h2>
                 </div>
 
                 <p class="cta-reveal opacity-0 text-lg md:text-xl text-neutral-400 font-sans max-w-xl font-light mb-8">
-                    Ready to tame complexity and deploy engineering excellence? Let's talk about your next big leap.
+                    Pronto para traduzir ecossistemas de dados complexos em arquiteturas de decisão limpas e
+                    automatizadas? Do pipeline SQL à estratégia de ETFs, vamos conversar sobre como o rigor quantitativo
+                    pode escalar o seu próximo grande salto.
                 </p>
 
                 <div class="z-50 relative pb-10">
                     <!-- Highly Visible Main CTA Button -->
-                    <button class="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-brand-600 to-amber-500 px-10 py-4 md:px-14 md:py-5 text-sm md:text-lg font-bold text-black tracking-[0.1em] shadow-[0_0_60px_-10px_rgba(249,115,22,1)] transition-all hover:scale-105 hover:shadow-[0_0_80px_0px_rgba(249,115,22,1)] focus:outline-none uppercase border border-white/20">
-                        <span class="relative z-10 group-hover:text-black transition-colors delay-75">Start a Project</span>
-                        <i data-lucide="arrow-right" class="w-5 h-5 relative z-10 text-black group-hover:translate-x-2 transition-transform"></i>
-                        <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 rounded-full transition-opacity"></div>
+                    <button
+                        class="group flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-brand-600 to-amber-500 px-10 py-4 md:px-14 md:py-5 text-sm md:text-lg font-bold text-black tracking-[0.1em] shadow-[0_0_60px_-10px_rgba(249,115,22,1)] transition-all hover:scale-105 hover:shadow-[0_0_80px_0px_rgba(249,115,22,1)] focus:outline-none uppercase border border-white/20">
+                        <span class="relative z-10 group-hover:text-black transition-colors delay-75">Fale comigo</span>
+                        <i data-lucide="arrow-right"
+                            class="w-5 h-5 relative z-10 text-black group-hover:translate-x-2 transition-transform"></i>
+                        <div
+                            class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 rounded-full transition-opacity">
+                        </div>
                     </button>
                 </div>
             </div>
 
             <!-- Optional Custom Footer Branding -->
             <footer class="w-full mt-auto border-t border-white/5 bg-[#010101]/80 backdrop-blur-md py-8 z-30">
-                <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
+                <div
+                    class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
                     <div class="flex items-center gap-2">
                         <div class="w-2 h-2 bg-brand-500 rounded-full animate-pulse shadow-[0_0_10px_#f97316]"></div>
                         <span class="font-medium tracking-widest uppercase text-neutral-300">Luminous Engineering</span>
                     </div>
-                    
+
                     <div class="flex gap-6 uppercase tracking-widest font-bold">
                         <a href="#" class="hover:text-brand-400 transition-colors">Twitter</a>
                         <a href="#" class="hover:text-brand-400 transition-colors">GitHub</a>
                         <a href="#" class="hover:text-brand-400 transition-colors">LinkedIn</a>
                     </div>
-                    
-                    <div class="font-mono bg-white/5 px-3 py-1.5 rounded-md border border-white/10 uppercase tracking-widest cursor-default">2026 / All systems nominal</div>
+
+                    <div
+                        class="font-mono bg-white/5 px-3 py-1.5 rounded-md border border-white/10 uppercase tracking-widest cursor-default">
+                        2026 / All systems nominal</div>
                 </div>
             </footer>
         </section>
-        
+
     </main>
 
     <!-- Custom Scripts -->
     <script src="./Assets/js/main.js"></script>
 </body>
+
 </html>
-
-
