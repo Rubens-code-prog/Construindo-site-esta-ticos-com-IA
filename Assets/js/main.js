@@ -19,70 +19,12 @@
         });
         gsap.ticker.lagSmoothing(0, 0);
 
-        // Apple Video Parallax Implementation (Bulletproof Local Loader)
+        // Core GSAP Setup
         gsap.registerPlugin(ScrollTrigger);
 
-        const video = document.getElementById("bg-video");
-        let scrubInitialized = false;
-        
-        function initVideoScrub() {
-            if(scrubInitialized) return;
-            scrubInitialized = true;
-            
-            video.style.opacity = "0.6";
-
-            let proxy = { time: 0 };
-            
-            // GSAP handles calculating the target progress smoothly
-            gsap.to(proxy, {
-                time: () => video.duration || 1,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: document.documentElement,
-                    start: "top top",
-                    endTrigger: "#investment-projects",
-                    end: "top 30%",
-                    scrub: 0.5,
-                }
-            });
-
-            // Decoupled Video Update Loop
-            let lastUpdate = 0;
-            function renderVideo() {
-                if (video.readyState >= 1 && video.duration > 0) {
-                    const now = performance.now();
-                    // CRITICAL: Throttle DOM currentTime assignments to ~25 FPS (40ms).
-                    // Without this throttle, the browser's video decoder queue fills up,
-                    // blocking frame paints until scrolling completely stops!
-                    if (now - lastUpdate > 40) {
-                        let diff = Math.abs(video.currentTime - proxy.time);
-                        if (diff > 0.01) {
-                            video.currentTime = proxy.time;
-                            lastUpdate = now;
-                        }
-                    }
-                }
-                requestAnimationFrame(renderVideo);
-            }
-            
-            // Start the decoupled loop
-            requestAnimationFrame(renderVideo);
-        }
-
-        // Ensure video is properly loaded before mounting to timeline
-        if (video.readyState >= 1) {
-            initVideoScrub();
-        } else {
-            video.addEventListener("loadedmetadata", initVideoScrub);
-            video.addEventListener("canplay", initVideoScrub);
-        }
-
-        // CRITICAL FIX: Fonts and styles expanding the DOM height happen *after* initial JS runs.
-        // This caused the timeline to calculate a short body height and end at the "comecinho".
+        // Core Window Load & Refresh (guarantees FOLD 2 & 3 triggers load properly)
         window.addEventListener("load", () => {
-            initVideoScrub();
-            video.pause();
-            ScrollTrigger.refresh(true); // Forces GSAP to recalculate the exact new height 
+            ScrollTrigger.refresh(true); 
         });
 
         // Extra polish: GSAP Reveals for elements scrolling into view

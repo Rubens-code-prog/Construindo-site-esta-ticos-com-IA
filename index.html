@@ -69,17 +69,80 @@
     <div class="cursor-circle cursor-circle-2"></div>
     <div class="cursor-circle cursor-circle-3"></div>
 
-    <!-- Apple Video Scroll Background Layer -->
-    <div class="fixed inset-0 w-full h-full z-0 pointer-events-none bg-black">
-        <video id="bg-video" 
-               src="./Assets/media/Chaos_to_clean_202603310803.mp4" 
-               class="w-full h-full object-cover mix-blend-screen transition-opacity duration-[2000ms] ease-in-out"
-               style="opacity: 0;"
-               muted playsinline preload="auto">
-        </video>
-        <!-- Overlay for Contrast & Aesthetics -->
-        <div class="absolute inset-0 bg-grid bg-[length:64px_64px]"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-[#030303]/40 via-transparent to-[#030303]/90"></div>
+    <!-- The Orbital Data Core (Volumetric 3D Architecture) -->
+    <div class="fixed inset-0 w-full h-full z-0 pointer-events-none bg-[#030303] overflow-hidden">
+        <style>
+            .orbital-core-container {
+                position: absolute; top: 50%; left: 50%;
+                width: 100vw; height: 100vh;
+                transform: translate(-50%, -50%);
+                perspective: 1200px; transform-style: preserve-3d; overflow: visible;
+            }
+
+            .volumetric-orb {
+                position: absolute; top: 50%; left: 50%;
+                border-radius: 50%; transform: translate(-50%, -50%);
+                filter: blur(120px); mix-blend-mode: screen;
+                animation: pulsePlasma 8s infinite alternate ease-in-out;
+            }
+            .orb-amber {
+                width: 800px; height: 800px; margin-left: -20vw;
+                background: radial-gradient(circle, rgba(249, 115, 22, 0.40) 0%, transparent 65%);
+            }
+            .orb-cyan {
+                width: 900px; height: 900px; margin-left: 20vw; animation-delay: -4s;
+                background: radial-gradient(circle, rgba(59, 130, 246, 0.30) 0%, transparent 65%);
+            }
+
+            @keyframes pulsePlasma {
+                0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+                100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+            }
+
+            .orbital-ring {
+                position: absolute; top: 50%; left: 50%;
+                border-radius: 50%; transform-style: preserve-3d;
+            }
+
+            /* MEGA THICK & BRIGHT RINGS */
+            .ring-layer-1 {
+                width: 1400px; height: 1400px; margin-top: -700px; margin-left: -700px;
+                border: 15px solid rgba(249, 115, 22, 0.8);
+                box-shadow: 0 0 100px rgba(249, 115, 22, 0.9), inset 0 0 100px rgba(249, 115, 22, 0.9);
+                animation: spinOrbital 18s linear infinite;
+            }
+
+            .ring-layer-2 {
+                width: 1100px; height: 1100px; margin-top: -550px; margin-left: -550px;
+                border: 8px dashed rgba(251, 191, 36, 0.9);
+                box-shadow: 0 0 60px rgba(251, 191, 36, 0.7);
+                animation: spinOrbitalReverse 12s linear infinite;
+            }
+
+            .ring-layer-3 {
+                width: 1800px; height: 1800px; margin-top: -900px; margin-left: -900px;
+                border: 12px solid rgba(59, 130, 246, 0.6);
+                box-shadow: 0 0 120px rgba(59, 130, 246, 0.7);
+                animation: spinOrbitalTilt 24s linear infinite;
+            }
+
+            @keyframes spinOrbital { 0% { transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg); } 100% { transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg); } }
+            @keyframes spinOrbitalReverse { 0% { transform: rotateX(75deg) rotateY(-10deg) rotateZ(360deg); } 100% { transform: rotateX(75deg) rotateY(-10deg) rotateZ(0deg); } }
+            @keyframes spinOrbitalTilt { 0% { transform: rotateX(50deg) rotateY(-20deg) rotateZ(0deg); } 100% { transform: rotateX(50deg) rotateY(-20deg) rotateZ(360deg); } }
+        </style>
+
+        <div class="absolute inset-0 bg-grid opacity-30"></div>
+        <div class="stars absolute inset-0 opacity-80"></div>
+
+        <div class="orbital-core-container">
+            <div class="volumetric-orb orb-amber"></div>
+            <div class="volumetric-orb orb-cyan"></div>
+            <div class="orbital-ring ring-layer-1"></div>
+            <div class="orbital-ring ring-layer-2"></div>
+            <div class="orbital-ring ring-layer-3"></div>
+        </div>
+
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#030303]"></div>
     </div>
 
     <!-- Navigation -->
